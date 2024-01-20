@@ -38,9 +38,10 @@ class _PaperBoardState extends State<PaperBoard> {
     final box = context.findRenderObject() as RenderBox;
     final offset = box.globalToLocal(event.position);
 
-    controller.sketches.add(controller.currentSketch.copyWith(
+    final sketch = controller.currentSketch.copyWith(
       points: [...controller.currentSketch.points, offset],
-    )..sanitize());
+    );
+    controller.addSketch(sketch);
     controller.currentSketch = controller.currentSketch.copyWith(points: []);
   }
 

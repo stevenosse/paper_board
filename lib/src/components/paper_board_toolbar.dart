@@ -30,6 +30,20 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
+                  IconButton(
+                    onPressed: () {
+                      widget.controller.undo();
+                    },
+                    color: widget.controller.canUndo ? Colors.black : Colors.grey,
+                    icon: const Icon(Icons.undo),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      widget.controller.redo();
+                    },
+                    color: widget.controller.canRedo ? Colors.black : Colors.grey,
+                    icon: const Icon(Icons.redo),
+                  ),
                   OverlayPortal(
                     controller: _sizeSelectorOverlayController,
                     overlayChildBuilder: (context) {
