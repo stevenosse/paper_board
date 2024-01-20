@@ -33,7 +33,7 @@ class DrawingBoardController extends ChangeNotifier {
     if (sketch is EraserSketch) {
       currentSketch = sketch.copyWith(thickness: eraserThickness);
     } else {
-      currentSketch = sketch;
+      currentSketch = sketch.copyWith(thickness: thickness, filled: fillSketches);
     }
     notifyListeners();
   }

@@ -17,7 +17,7 @@ class TriangleSketch extends SketchBase {
     final paint = Paint()
       ..color = color ?? Colors.black
       ..strokeWidth = thickness
-      ..style = PaintingStyle.stroke;
+      ..style = filled ? PaintingStyle.fill : PaintingStyle.stroke;
 
     if (points.length >= 2) {
       final ySideSize = points.first.distanceTo(points.last);
