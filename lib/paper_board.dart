@@ -11,6 +11,6 @@ export 'src/drawing/shapes/line_sketch.dart';
 export 'src/drawing/shapes/eraser.dart';
 export 'src/drawing/shapes/empty_sketch.dart';
 export 'src/components/paper_board_toolbar.dart';
-export 'src/services/undo_service.dart';
+export 'src/services/undo/undo_service.dart';
 export 'src/services/undo/commands/add_sketch_command.dart';
 export 'src/services/undo/commands/undoable_command.dart';
