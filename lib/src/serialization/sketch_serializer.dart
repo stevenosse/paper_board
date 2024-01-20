@@ -1,5 +1,5 @@
 import 'package:paper_board/paper_board.dart';
-import 'package:paper_board/src/models/shapes/sketch_base.dart';
+import 'package:paper_board/src/drawing/shapes/sketch_base.dart';
 
 class SketchSerializer {
   const SketchSerializer();

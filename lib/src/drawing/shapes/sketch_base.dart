@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:paper_board/src/models/mixins/drawable_sketch.dart';
+import 'package:paper_board/src/drawing/mixins/drawable_sketch.dart';
 
 class SketchBase with DrawableSketch {
   SketchBase({

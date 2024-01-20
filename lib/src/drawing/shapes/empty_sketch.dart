@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:paper_board/src/models/shapes/sketch_base.dart';
+import 'package:paper_board/src/drawing/shapes/sketch_base.dart';
 
 class EmptySketch extends SketchBase {
   EmptySketch({
