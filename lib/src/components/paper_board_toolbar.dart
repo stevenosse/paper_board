@@ -80,7 +80,7 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                     controller: _eraserSizeSelectorOverlayController,
                     overlayChildBuilder: (context) {
                       return Positioned(
-                        left: 10.0,
+                        left: 15.0,
                         bottom: kMinInteractiveDimension * 1.7,
                         child: SizeSelectorWidget(
                           initialSize: controller.eraserThickness,
@@ -114,6 +114,11 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                     },
                     color: widget.controller.currentSketch is EraserSketch ? Colors.red : Colors.grey,
                     icon: const Icon(Icons.stop_rounded),
+                  ),
+                  IconButton(
+                    onPressed: () => widget.controller.clear(),
+                    color: Colors.red,
+                    icon: const Icon(Icons.clear),
                   ),
                   const SizedBox(
                     height: 30,
