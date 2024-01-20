@@ -30,6 +30,16 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
+                  Column(
+                    children: [
+                      Checkbox(
+                        value: controller.fillSketches,
+                        onChanged: (value) => controller.setFillSketches(value!),
+                      ),
+                      const Text('Fill Sketches'),
+                    ],
+                  ),
+                  const SizedBox(width: 10),
                   IconButton(
                     onPressed: () {
                       widget.controller.undo();

@@ -17,7 +17,7 @@ final class RectangleSketch extends SketchBase {
     final paint = Paint()
       ..color = color ?? Colors.black
       ..strokeWidth = thickness
-      ..style = PaintingStyle.stroke;
+      ..style = filled ? PaintingStyle.fill : PaintingStyle.stroke;
 
     if (points.length >= 2) {
       canvas.drawRect(Rect.fromPoints(points.first, points.last), paint);

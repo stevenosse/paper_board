@@ -12,6 +12,8 @@ class DrawingBoardController extends ChangeNotifier {
   double thickness = 2.0;
   double eraserThickness = 5.0;
 
+  bool fillSketches = false;
+
   final UndoService undoService;
 
   bool get canUndo => undoService.canUndo;
@@ -56,6 +58,14 @@ class DrawingBoardController extends ChangeNotifier {
 
   void setSketches(List<SketchBase> sketches) {
     this.sketches = sketches;
+    notifyListeners();
+  }
+
+  setFillSketches(bool value) {
+    fillSketches = value;
+    if (currentSketch is! EraserSketch) {
+      currentSketch = currentSketch.copyWith(filled: value);
+    }
     notifyListeners();
   }
 
