@@ -57,13 +57,12 @@ class _PaperBoardState extends State<PaperBoard> {
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.white),
                 ),
-                child: RepaintBoundary(
-                  child: Stack(
-                    children: [
-                      FractionallySizedBox(
-                        widthFactor: 1.0,
-                        heightFactor: 1.0,
-                        child: CustomPaint(
+                child: RepaintBoundary(child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    return Stack(
+                      children: [
+                        CustomPaint(
+                          size: Size.fromHeight(constraints.maxHeight),
                           painter: _PaperBoardPainter(
                             sketches: [
                               ...controller.sketches,
@@ -72,22 +71,19 @@ class _PaperBoardState extends State<PaperBoard> {
                             ],
                           ),
                         ),
-                      ),
-                      FractionallySizedBox(
-                        widthFactor: 1.0,
-                        heightFactor: 1.0,
-                        child: Listener(
+                        Listener(
                           onPointerUp: _onPointerUp,
                           onPointerMove: _onPointerMove,
                           onPointerDown: _onPointerDown,
                           child: CustomPaint(
+                            size: Size.fromHeight(constraints.maxHeight),
                             painter: _SketchPainter(sketch: controller.currentSketch),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                        )
+                      ],
+                    );
+                  },
+                )),
               ),
             ),
           ],

@@ -6,18 +6,17 @@ The goal is to build a powerful and highly customizable drawing board.
 ## Features
 - [x] Draw
 - [x] Erase
-- [ ] Undo
-- [ ] Redo
-- [ ] Clear
+- [x] Undo
+- [x] Redo
+- [x] Clear
+- Sketch color
 - [ ] Save
 - [ ] Load
+- Zoom
 
 ## TODO
 - Make the toolbar customizable
 - Add unit tests
 - Write documentation
-- Add an Undo/Redo system
 - Add a Save/Load system
-- Add a Clear button
 - Add a ColorPicker
-- Add a SizePicker
