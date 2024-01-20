@@ -24,6 +24,8 @@ The goal is to build a powerful and highly customizable drawing board.
 
 ## Usage
 
+<img src="screenshots/1.png" width="200" />
+
 ### Installation
 
 Add the following dependency to your `pubspec.yaml` file:
