@@ -5,13 +5,20 @@ class DrawingBoardController extends ChangeNotifier {
   SketchBase currentSketch = PencilSketch(points: []);
   List<SketchBase> sketches = [];
 
+  double thickness = 2.0;
+  double eraserThickness = 5.0;
+
   void clear() {
     sketches = [];
     notifyListeners();
   }
 
   void setSketch(SketchBase sketch) {
-    currentSketch = sketch;
+    if (sketch is EraserSketch) {
+      currentSketch = sketch.copyWith(thickness: eraserThickness);
+    } else {
+      currentSketch = sketch;
+    }
     notifyListeners();
   }
 
@@ -22,6 +29,20 @@ class DrawingBoardController extends ChangeNotifier {
 
   void addSketch(SketchBase sketch) {
     sketches = [...sketches, sketch];
+    notifyListeners();
+  }
+
+  void setThickness(double thickness) {
+    currentSketch = currentSketch.copyWith(thickness: thickness);
+    this.thickness = thickness;
+    notifyListeners();
+  }
+
+  void setEraserThickness(double thickness) {
+    eraserThickness = thickness;
+    if (currentSketch is EraserSketch) {
+      currentSketch = currentSketch.copyWith(thickness: thickness);
+    }
     notifyListeners();
   }
 }

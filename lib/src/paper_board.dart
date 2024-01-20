@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:paper_board/src/drawing_board_controller.dart';
-import 'package:paper_board/src/models/shapes/sketch_base.dart';
+import 'package:paper_board/paper_board.dart';
 
 class PaperBoard extends StatefulWidget {
   const PaperBoard({
@@ -64,7 +63,13 @@ class _PaperBoardState extends State<PaperBoard> {
                         widthFactor: 1.0,
                         heightFactor: 1.0,
                         child: CustomPaint(
-                          painter: _PaperBoardPainter(sketches: controller.sketches),
+                          painter: _PaperBoardPainter(
+                            sketches: [
+                              ...controller.sketches,
+                              // This fixes the issue with eraser not working
+                              if (controller.currentSketch is EraserSketch) controller.currentSketch
+                            ],
+                          ),
                         ),
                       ),
                       FractionallySizedBox(
@@ -125,10 +130,10 @@ class _SketchPainter extends CustomPainter {
     if (!sketch.shouldDraw) {
       return;
     }
-    
-    canvas.saveLayer(Offset.zero & size, Paint());
-    sketch.draw(canvas, size);
-    canvas.restore();
+
+    if (sketch is! EraserSketch) {
+      sketch.draw(canvas, size);
+    }
   }
 
   @override

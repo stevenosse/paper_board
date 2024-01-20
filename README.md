@@ -21,4 +21,3 @@ The goal is to build a powerful and highly customizable drawing board.
 - Add a Clear button
 - Add a ColorPicker
 - Add a SizePicker
-- Fix eraser
