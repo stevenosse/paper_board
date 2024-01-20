@@ -30,6 +30,12 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
+                  IconButton(
+                    onPressed: () {
+                      widget.controller.save();
+                    },
+                    icon: const Icon(Icons.save),
+                  ),
                   Column(
                     children: [
                       Checkbox(

@@ -57,6 +57,7 @@ class _PaperBoardState extends State<PaperBoard> {
             Expanded(
               child: DecoratedBox(
                 decoration: BoxDecoration(
+                  // TODO: Make this configurable
                   border: Border.all(color: Colors.white),
                 ),
                 child: RepaintBoundary(

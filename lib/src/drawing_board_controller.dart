@@ -61,7 +61,7 @@ class DrawingBoardController extends ChangeNotifier {
     notifyListeners();
   }
 
-  setFillSketches(bool value) {
+  void setFillSketches(bool value) {
     fillSketches = value;
     if (currentSketch is! EraserSketch) {
       currentSketch = currentSketch.copyWith(filled: value);
@@ -86,5 +86,19 @@ class DrawingBoardController extends ChangeNotifier {
   void clear() {
     sketches = [];
     notifyListeners();
+  }
+
+  Map<String, dynamic> save() {
+    final board = Board(
+      id: 'board',
+      sketches: sketches,
+    );
+
+    return board.serialize();
+  }
+
+  void load(Map<String, dynamic> data) {
+    final board = Board.deserialize(data);
+    setSketches(board.sketches);
   }
 }

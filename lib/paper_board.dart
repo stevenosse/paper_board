@@ -1,6 +1,7 @@
 library paper_board;
 
 export 'src/drawing/paper_board.dart';
+export 'src/serialization/models/board.dart';
 export 'src/drawing_board_controller.dart';
 export 'src/drawing/shapes/sketch_base.dart';
 export 'src/drawing/shapes/pencil.dart';
@@ -14,3 +15,5 @@ export 'src/components/paper_board_toolbar.dart';
 export 'src/services/undo/undo_service.dart';
 export 'src/services/undo/commands/add_sketch_command.dart';
 export 'src/services/undo/commands/undoable_command.dart';
+export 'src/serialization/sketch_deserializer.dart';
+export 'src/serialization/sketch_serializer.dart';
