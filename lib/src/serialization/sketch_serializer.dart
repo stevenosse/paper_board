@@ -6,7 +6,7 @@ class SketchSerializer {
 
   Map<String, dynamic> serialize(SketchBase sketch) {
     return {
-      'type': sketch.runtimeType.toString(),
+      'type': sketch.type,
       'points': sketch.points.map((e) => [e.dx, e.dy]).toList(),
       'color': sketch.color?.value,
       'thickness': sketch.thickness,

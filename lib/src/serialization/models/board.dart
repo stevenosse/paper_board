@@ -1,20 +1,16 @@
 import 'package:paper_board/paper_board.dart';
 
 class Board {
-  final String id;
   final List<SketchBase> sketches;
 
-  Board({
-    required this.id,
+  const Board({
     required this.sketches,
   });
 
   Board copyWith({
-    String? id,
     List<SketchBase>? sketches,
   }) {
     return Board(
-      id: id ?? this.id,
       sketches: sketches ?? this.sketches,
     );
   }
@@ -22,7 +18,6 @@ class Board {
   Map<String, dynamic> serialize({SketchSerializer? serializer}) {
     final sz = serializer ?? const SketchSerializer();
     return {
-      'id': id,
       'sketches': sketches.map((e) => sz.serialize(e)).toList(),
     };
   }
@@ -30,9 +25,8 @@ class Board {
   factory Board.deserialize(Map<String, dynamic> json, {SketchDeserializer? serializer}) {
     final sz = serializer ?? const SketchDeserializer();
     final sketches = json['sketches'] as List<dynamic>;
-    
+
     return Board(
-      id: json['id'],
       sketches: sketches.map((e) => sz.deserialize(e)).toList(),
     );
   }
