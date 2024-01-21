@@ -1,14 +1,17 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:paper_board/paper_board.dart';
 import 'package:paper_board/src/components/size_selector_widget.dart';
+import 'package:paper_board/src/models/toolbar_item.dart';
 
 class PaperBoardToolbar extends StatefulWidget {
-  const PaperBoardToolbar({super.key, required this.controller});
+  PaperBoardToolbar({
+    super.key,
+    required this.controller,
+    List<ToolbarItem>? items,
+  }) : items = items ?? standardToolbarItems;
 
   final DrawingBoardController controller;
+  final List<ToolbarItem> items;
 
   @override
   State<PaperBoardToolbar> createState() => _PaperBoardToolbarState();
@@ -34,154 +37,76 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
               child: Row(
                 children: [
                   IconButton(
-                    onPressed: () {
-                      final board = widget.controller.save();
-                      log(jsonEncode(board));
-                    },
-                    icon: const Icon(Icons.save),
-                  ),
-                  Column(
-                    children: [
-                      Checkbox(
-                        value: controller.fillSketches,
-                        onChanged: (value) => controller.setFillSketches(value!),
-                      ),
-                      const Text('Fill Sketches'),
-                    ],
-                  ),
-                  const SizedBox(width: 10),
-                  IconButton(
-                    onPressed: () {
-                      widget.controller.undo();
-                    },
-                    color: widget.controller.canUndo ? Colors.black : Colors.grey,
+                    onPressed: () => controller.undo(),
                     icon: const Icon(Icons.undo),
+                    color: controller.canUndo ? null : Colors.grey,
                   ),
                   IconButton(
-                    onPressed: () {
-                      widget.controller.redo();
-                    },
-                    color: widget.controller.canRedo ? Colors.black : Colors.grey,
+                    onPressed: () => controller.redo(),
                     icon: const Icon(Icons.redo),
+                    color: controller.canRedo ? null : Colors.grey,
                   ),
+                  for (final item in widget.items)
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Tooltip(
+                        message: item.label!,
+                        child: IconButton(
+                          color: controller.currentSketch.runtimeType == item.sketch
+                              ? Theme.of(context).primaryColor
+                              : null,
+                          icon: Icon(item.icon),
+                          onPressed: () => item.handler!(controller),
+                        ),
+                      ),
+                    ),
                   OverlayPortal(
                     controller: _sizeSelectorOverlayController,
                     overlayChildBuilder: (context) {
                       return Positioned(
                         left: 10.0,
-                        bottom: kMinInteractiveDimension * 1.7,
+                        bottom: 100,
                         child: SizeSelectorWidget(
-                          initialSize: controller.thickness,
-                          onSizeChanged: (value) {
-                            widget.controller.setThickness(value);
-                            _sizeSelectorOverlayController.toggle();
-                          },
+                          initialSize: controller.currentSketch.thickness,
+                          onSizeChanged: (size) => controller.setThickness(size),
                         ),
                       );
                     },
-                    child: InkWell(
-                      onTap: () {
-                        _sizeSelectorOverlayController.toggle();
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Stroke Size: ${controller.thickness}'),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Tooltip(
+                        message: 'Size',
+                        child: IconButton(
+                          icon: const Icon(Icons.format_size),
+                          onPressed: () => _sizeSelectorOverlayController.toggle(),
+                        ),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 30,
-                    child: VerticalDivider(
-                      thickness: .7,
-                      color: Colors.grey,
-                    ),
-                  ),
+                  // TODO: Find better icons
                   OverlayPortal(
                     controller: _eraserSizeSelectorOverlayController,
                     overlayChildBuilder: (context) {
                       return Positioned(
-                        left: 15.0,
-                        bottom: kMinInteractiveDimension * 1.7,
+                        left: 10.0,
+                        bottom: 100,
                         child: SizeSelectorWidget(
                           initialSize: controller.eraserThickness,
-                          onSizeChanged: (value) {
-                            widget.controller.setEraserThickness(value);
-                            _eraserSizeSelectorOverlayController.toggle();
-                          },
+                          onSizeChanged: (size) => controller.setEraserThickness(size),
                         ),
                       );
                     },
-                    child: InkWell(
-                      onTap: () {
-                        _eraserSizeSelectorOverlayController.toggle();
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Erazer Size: ${controller.eraserThickness}'),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Tooltip(
+                        message: 'Eraser Size',
+                        child: IconButton(
+                          icon: const Icon(Icons.foundation),
+                          onPressed: () => _eraserSizeSelectorOverlayController.toggle(),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                    child: VerticalDivider(
-                      thickness: .7,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      widget.controller.setSketch(EraserSketch(points: []));
-                    },
-                    color: widget.controller.currentSketch is EraserSketch ? Colors.red : Colors.grey,
-                    icon: const Icon(Icons.stop_rounded),
-                  ),
-                  IconButton(
-                    onPressed: () => widget.controller.clear(),
-                    color: Colors.red,
-                    icon: const Icon(Icons.clear),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                    child: VerticalDivider(
-                      thickness: .7,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      widget.controller.setSketch(PencilSketch(points: []));
-                    },
-                    color: widget.controller.currentSketch is PencilSketch ? Colors.blue : Colors.grey,
-                    icon: const Icon(Icons.edit),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      widget.controller.setSketch(RectangleSketch(points: []));
-                    },
-                    color: widget.controller.currentSketch is RectangleSketch ? Colors.blue : Colors.grey,
-                    icon: const Icon(Icons.crop_square),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      widget.controller.setSketch(SphereSketch(points: []));
-                    },
-                    color: widget.controller.currentSketch is SphereSketch ? Colors.blue : Colors.grey,
-                    icon: const Icon(Icons.circle_outlined),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      widget.controller.setSketch(TriangleSketch(points: []));
-                    },
-                    color: widget.controller.currentSketch is TriangleSketch ? Colors.blue : Colors.grey,
-                    icon: const Icon(Icons.change_history),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      widget.controller.setSketch(LineSketch(points: []));
-                    },
-                    color: widget.controller.currentSketch is LineSketch ? Colors.blue : Colors.grey,
-                    icon: const Icon(Icons.remove),
-                  ),
+                  )
                 ],
               ),
             ),

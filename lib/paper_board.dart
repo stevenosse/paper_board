@@ -1,6 +1,6 @@
 library paper_board;
 
-export 'src/drawing/paper_board.dart';
+export 'src/components/paper_board.dart';
 export 'src/serialization/models/board.dart';
 export 'src/drawing_board_controller.dart';
 export 'src/drawing/shapes/sketch_base.dart';

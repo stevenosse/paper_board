@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paper_board/paper_board.dart';
-import 'package:paper_board/src/painters/paper_board_painter.dart';
-import 'package:paper_board/src/painters/sketch_painter.dart';
+import 'package:paper_board/src/drawing/painters/paper_board_painter.dart';
+import 'package:paper_board/src/drawing/painters/sketch_painter.dart';
 
 class PaperBoard extends StatefulWidget {
   const PaperBoard({
