@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:paper_board/paper_board.dart';
 
 void main() {
@@ -30,7 +33,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final DrawingBoardController controller = DrawingBoardController();
+   final DrawingBoardController controller = DrawingBoardController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _init();
+  }
+
+  void _init() async {
+    final content = await rootBundle.loadString('assets/board.json');
+    final boardJson = jsonDecode(content) as Map<String, dynamic>;
+    Board board = Board.deserialize(boardJson);
+
+    controller.load(board);
+  }
 
   @override
   Widget build(BuildContext context) {

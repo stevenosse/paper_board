@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:paper_board/paper_board.dart';
 
 class DrawingBoardController extends ChangeNotifier {
+  final Board initialBoard;
+
   DrawingBoardController({
+    this.initialBoard = const Board(sketches: []),
     UndoService? undoService,
-  }) : undoService = undoService ?? UndoService();
+  })  : undoService = undoService ?? UndoService(),
+        sketches = initialBoard.sketches;
 
   SketchBase currentSketch = PencilSketch(points: []);
   List<SketchBase> sketches = [];
@@ -90,15 +94,13 @@ class DrawingBoardController extends ChangeNotifier {
 
   Map<String, dynamic> save() {
     final board = Board(
-      id: 'board',
       sketches: sketches,
     );
 
     return board.serialize();
   }
 
-  void load(Map<String, dynamic> data) {
-    final board = Board.deserialize(data);
+  void load(Board board) {
     setSketches(board.sketches);
   }
 }

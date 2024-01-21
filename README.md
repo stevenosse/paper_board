@@ -9,8 +9,8 @@ The goal is to build a powerful and highly customizable drawing board.
 - [x] Redo
 - [x] Clear
 - [ ] Sketch color
-- [ ] Save
-- [ ] Load
+- [x] Save
+- [x] Load
 - [ ] Zoom
 - [ ] Publish on [pub.dev](https://pub.dev/)
  
@@ -75,7 +75,6 @@ class _HomePageState extends State<HomePage> {
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
-```
 
 ## Contributing
 

@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:paper_board/paper_board.dart';
 import 'package:paper_board/src/components/size_selector_widget.dart';
@@ -32,7 +35,8 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                 children: [
                   IconButton(
                     onPressed: () {
-                      widget.controller.save();
+                      final board = widget.controller.save();
+                      log(jsonEncode(board));
                     },
                     icon: const Icon(Icons.save),
                   ),
