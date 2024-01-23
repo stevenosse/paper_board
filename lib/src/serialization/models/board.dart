@@ -22,7 +22,8 @@ class Board {
     };
   }
 
-  factory Board.deserialize(Map<String, dynamic> json, {SketchDeserializer? serializer}) {
+  factory Board.deserialize(Map<String, dynamic> json,
+      {SketchDeserializer? serializer}) {
     final sz = serializer ?? const SketchDeserializer();
     final sketches = json['sketches'] as List<dynamic>;
 

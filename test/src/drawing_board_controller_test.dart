@@ -12,7 +12,9 @@ void main() {
       expect(controller.currentSketch, sketch);
     });
 
-    test('When non eraser sketch is set, it is copied with thickness and filled', () {
+    test(
+        'When non eraser sketch is set, it is copied with thickness and filled',
+        () {
       final controller = DrawingBoardController();
 
       const sketch = PencilSketch(points: []);
@@ -86,7 +88,9 @@ void main() {
       expect(controller.currentSketch.filled, true);
     });
 
-    test('Set fill sketches does not update the current sketch if it is an eraser', () {
+    test(
+        'Set fill sketches does not update the current sketch if it is an eraser',
+        () {
       final controller = DrawingBoardController();
 
       const sketch = EraserSketch(points: [Offset(1, 1)]);
@@ -114,7 +118,8 @@ void main() {
       expect(controller.currentSketch.thickness, 10);
     });
 
-    test('Set thickness does not update the current sketch if it is an eraser', () {
+    test('Set thickness does not update the current sketch if it is an eraser',
+        () {
       final controller = DrawingBoardController();
 
       const sketch = EraserSketch(points: [Offset(1, 1)]);

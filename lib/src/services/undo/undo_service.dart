@@ -27,4 +27,3 @@ class UndoService {
     _undoStack.add(command);
   }
 }
-

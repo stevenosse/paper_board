@@ -25,10 +25,12 @@ class LineSketch extends SketchBase {
   }
 
   @override
-  LineSketch sanitize() => copyWith(points: [...points]..removeRange(1, points.length - 1));
+  LineSketch sanitize() =>
+      copyWith(points: [...points]..removeRange(1, points.length - 1));
 
   @override
-  LineSketch copyWith({List<Offset>? points, Color? color, bool? filled, double? thickness}) {
+  LineSketch copyWith(
+      {List<Offset>? points, Color? color, bool? filled, double? thickness}) {
     return LineSketch(
       points: points ?? this.points,
       color: color ?? this.color,

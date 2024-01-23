@@ -16,7 +16,8 @@ class PaperBoard extends StatefulWidget {
 }
 
 class _PaperBoardState extends State<PaperBoard> {
-  late final DrawingBoardController controller = widget.controller ?? DrawingBoardController();
+  late final DrawingBoardController controller =
+      widget.controller ?? DrawingBoardController();
 
   void _onPointerDown(PointerDownEvent event) {
     final box = context.findRenderObject() as RenderBox;
@@ -71,7 +72,8 @@ class _PaperBoardState extends State<PaperBoard> {
                               sketches: [
                                 ...controller.sketches,
                                 // This fixes the issue with eraser not working
-                                if (controller.currentSketch is EraserSketch) controller.currentSketch
+                                if (controller.currentSketch is EraserSketch)
+                                  controller.currentSketch
                               ],
                             ),
                           ),
@@ -81,7 +83,8 @@ class _PaperBoardState extends State<PaperBoard> {
                             onPointerDown: _onPointerDown,
                             child: CustomPaint(
                               size: Size.fromHeight(constraints.maxHeight),
-                              painter: SketchPainter(sketch: controller.currentSketch),
+                              painter: SketchPainter(
+                                  sketch: controller.currentSketch),
                             ),
                           )
                         ],

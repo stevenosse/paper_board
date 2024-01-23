@@ -35,12 +35,13 @@ class PencilSketch extends SketchBase {
         sanitizedPoints.remove(p1);
       }
     }
-  
+
     return copyWith(points: sanitizedPoints.toList());
   }
 
   @override
-  PencilSketch copyWith({List<Offset>? points, Color? color, double? thickness, bool? filled}) {
+  PencilSketch copyWith(
+      {List<Offset>? points, Color? color, double? thickness, bool? filled}) {
     return PencilSketch(
       points: points ?? this.points,
       color: color ?? this.color,

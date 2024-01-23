@@ -43,10 +43,12 @@ class TriangleSketch extends SketchBase {
   }
 
   @override
-  TriangleSketch sanitize() => copyWith(points: [...points]..removeRange(1, points.length - 1));
+  TriangleSketch sanitize() =>
+      copyWith(points: [...points]..removeRange(1, points.length - 1));
 
   @override
-  TriangleSketch copyWith({List<Offset>? points, Color? color, double? thickness, bool? filled}) {
+  TriangleSketch copyWith(
+      {List<Offset>? points, Color? color, double? thickness, bool? filled}) {
     return TriangleSketch(
       points: points ?? this.points,
       color: color ?? this.color,

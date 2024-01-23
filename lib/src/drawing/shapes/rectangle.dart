@@ -25,7 +25,8 @@ final class RectangleSketch extends SketchBase {
   }
 
   @override
-  RectangleSketch sanitize() => copyWith(points: [...points]..removeRange(1, points.length - 1));
+  RectangleSketch sanitize() =>
+      copyWith(points: [...points]..removeRange(1, points.length - 1));
 
   @override
   RectangleSketch copyWith({

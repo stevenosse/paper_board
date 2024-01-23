@@ -7,7 +7,6 @@ const kDefaultEraserThickness = 5.0;
 class DrawingBoardController extends ChangeNotifier {
   final Board initialBoard;
   final SketchSerializer? serializer;
-  
 
   DrawingBoardController({
     this.initialBoard = const Board(sketches: []),
@@ -33,7 +32,8 @@ class DrawingBoardController extends ChangeNotifier {
     if (sketch is EraserSketch) {
       currentSketch = sketch.copyWith(thickness: eraserThickness);
     } else {
-      currentSketch = sketch.copyWith(thickness: thickness, filled: fillSketches);
+      currentSketch =
+          sketch.copyWith(thickness: thickness, filled: fillSketches);
     }
     notifyListeners();
   }
@@ -128,7 +128,7 @@ class DrawingBoardController extends ChangeNotifier {
     setSketches(board.sketches);
   }
 
-   void undo() {
+  void undo() {
     undoService.undo();
     notifyListeners();
   }

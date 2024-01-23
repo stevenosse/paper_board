@@ -22,31 +22,36 @@ final standardToolbarItems = [
     label: 'Pencil',
     icon: Icons.edit,
     sketch: PencilSketch,
-    handler: (controller) => controller.setSketch(const PencilSketch(points: [])),
+    handler: (controller) =>
+        controller.setSketch(const PencilSketch(points: [])),
   ),
   ToolbarItem(
     label: 'Eraser',
     icon: Icons.stop_rounded,
     sketch: EraserSketch,
-    handler: (controller) => controller.setSketch(const EraserSketch(points: [])),
+    handler: (controller) =>
+        controller.setSketch(const EraserSketch(points: [])),
   ),
   ToolbarItem(
     label: 'Rectangle',
     icon: Icons.crop_square,
     sketch: RectangleSketch,
-    handler: (controller) => controller.setSketch(const RectangleSketch(points: [])),
+    handler: (controller) =>
+        controller.setSketch(const RectangleSketch(points: [])),
   ),
   ToolbarItem(
     label: 'Sphere',
     icon: Icons.circle_outlined,
     sketch: SphereSketch,
-    handler: (controller) => controller.setSketch(const SphereSketch(points: [])),
+    handler: (controller) =>
+        controller.setSketch(const SphereSketch(points: [])),
   ),
   ToolbarItem(
     label: 'Triangle',
     icon: Icons.change_history,
     sketch: TriangleSketch,
-    handler: (controller) => controller.setSketch(const TriangleSketch(points: [])),
+    handler: (controller) =>
+        controller.setSketch(const TriangleSketch(points: [])),
   ),
   ToolbarItem(
     label: 'Line',

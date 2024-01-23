@@ -10,7 +10,8 @@ class EraserSketch extends SketchBase {
   });
 
   @override
-  SketchBase copyWith({List<Offset>? points, Color? color, double? thickness, bool? filled}) {
+  SketchBase copyWith(
+      {List<Offset>? points, Color? color, double? thickness, bool? filled}) {
     return EraserSketch(
       points: points ?? this.points,
       color: color ?? this.color,

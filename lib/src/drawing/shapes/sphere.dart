@@ -25,10 +25,12 @@ class SphereSketch extends SketchBase {
   }
 
   @override
-  SphereSketch sanitize() => copyWith(points: [...points]..removeRange(1, points.length - 1));
+  SphereSketch sanitize() =>
+      copyWith(points: [...points]..removeRange(1, points.length - 1));
 
   @override
-  SphereSketch copyWith({List<Offset>? points, Color? color, double? thickness, bool? filled}) {
+  SphereSketch copyWith(
+      {List<Offset>? points, Color? color, double? thickness, bool? filled}) {
     return SphereSketch(
       points: points ?? this.points,
       color: color ?? this.color,

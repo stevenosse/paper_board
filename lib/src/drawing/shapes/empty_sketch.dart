@@ -14,7 +14,8 @@ class EmptySketch extends SketchBase {
   bool get shouldDraw => false;
 
   @override
-  SketchBase copyWith({List<Offset>? points, Color? color, bool? filled, double? thickness}) {
+  SketchBase copyWith(
+      {List<Offset>? points, Color? color, bool? filled, double? thickness}) {
     return EmptySketch(
       points: points ?? this.points,
       color: color ?? this.color,

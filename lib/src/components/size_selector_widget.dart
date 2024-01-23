@@ -28,8 +28,10 @@ class _SizeSelectorWidgetState extends State<SizeSelectorWidget> {
           value: _size,
           min: 1.0,
           max: 10.0,
-          onChanged: (value) => setState(() => _size = value.round().toDouble()),
-          onChangeEnd: (value) => widget.onSizeChanged?.call(value.round().toDouble()),
+          onChanged: (value) =>
+              setState(() => _size = value.round().toDouble()),
+          onChangeEnd: (value) =>
+              widget.onSizeChanged?.call(value.round().toDouble()),
         ),
       ),
     );
