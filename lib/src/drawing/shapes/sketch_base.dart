@@ -1,15 +1,16 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:paper_board/src/drawing/mixins/drawable_sketch.dart';
 
-abstract class SketchBase with DrawableSketch {
-  SketchBase({
+abstract class SketchBase extends Equatable with DrawableSketch {
+  const SketchBase({
     required this.points,
     this.color,
     this.thickness = 2,
     this.filled = false,
   });
 
-  List<Offset> points;
+  final List<Offset> points;
   final double thickness;
   final bool filled;
   final Color? color;
@@ -23,7 +24,10 @@ abstract class SketchBase with DrawableSketch {
   void draw(Canvas canvas, Size size) {}
 
   @override
-  void sanitize() {}
+  List<Object?> get props => [points, thickness, filled, color];
+
+  @override
+  SketchBase sanitize() => this;
 
   SketchBase copyWith({
     List<Offset>? points,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paper_board/src/drawing/shapes/sketch_base.dart';
 
 final class RectangleSketch extends SketchBase {
-  RectangleSketch({
+  const RectangleSketch({
     required super.points,
     super.color,
     super.thickness,
@@ -25,10 +25,10 @@ final class RectangleSketch extends SketchBase {
   }
 
   @override
-  void sanitize() => points.removeRange(1, points.length - 1);
+  RectangleSketch sanitize() => copyWith(points: [...points]..removeRange(1, points.length - 1));
 
   @override
-  SketchBase copyWith({
+  RectangleSketch copyWith({
     List<Offset>? points,
     Color? color,
     bool? filled,

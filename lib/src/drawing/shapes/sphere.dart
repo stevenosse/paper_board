@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paper_board/src/drawing/shapes/sketch_base.dart';
 
 class SphereSketch extends SketchBase {
-  SphereSketch({
+  const SphereSketch({
     required super.points,
     super.color,
     super.thickness,
@@ -25,10 +25,10 @@ class SphereSketch extends SketchBase {
   }
 
   @override
-  void sanitize() => points.removeRange(1, points.length - 1);
+  SphereSketch sanitize() => copyWith(points: [...points]..removeRange(1, points.length - 1));
 
   @override
-  SketchBase copyWith({List<Offset>? points, Color? color, double? thickness, bool? filled}) {
+  SphereSketch copyWith({List<Offset>? points, Color? color, double? thickness, bool? filled}) {
     return SphereSketch(
       points: points ?? this.points,
       color: color ?? this.color,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paper_board/src/drawing/shapes/sketch_base.dart';
 
 class EraserSketch extends SketchBase {
-  EraserSketch({
+  const EraserSketch({
     required super.points,
     super.color,
     super.thickness,
@@ -32,9 +32,6 @@ class EraserSketch extends SketchBase {
     path.addPolygon(points, false);
     canvas.drawPath(path, paint);
   }
-
-  @override
-  void sanitize() {}
 
   @override
   String get type => 'eraser';

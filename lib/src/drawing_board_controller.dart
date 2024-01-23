@@ -3,14 +3,16 @@ import 'package:paper_board/paper_board.dart';
 
 class DrawingBoardController extends ChangeNotifier {
   final Board initialBoard;
+  final SketchSerializer? serializer;
 
   DrawingBoardController({
     this.initialBoard = const Board(sketches: []),
     UndoService? undoService,
+    this.serializer,
   })  : undoService = undoService ?? UndoService(),
         sketches = initialBoard.sketches;
 
-  SketchBase currentSketch = PencilSketch(points: []);
+  SketchBase currentSketch = const PencilSketch(points: []);
   List<SketchBase> sketches = [];
 
   double thickness = 2.0;
@@ -22,16 +24,6 @@ class DrawingBoardController extends ChangeNotifier {
 
   bool get canUndo => undoService.canUndo;
   bool get canRedo => undoService.canRedo;
-
-  void undo() {
-    undoService.undo();
-    notifyListeners();
-  }
-
-  void redo() {
-    undoService.redo();
-    notifyListeners();
-  }
 
   void setSketch(SketchBase sketch) {
     if (sketch is EraserSketch) {
@@ -65,6 +57,7 @@ class DrawingBoardController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Determines whether the current sketch should be filled
   void setFillSketches(bool value) {
     fillSketches = value;
     if (currentSketch is! EraserSketch) {
@@ -73,12 +66,14 @@ class DrawingBoardController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Sets the thickness of the current sketch
   void setThickness(double thickness) {
     currentSketch = currentSketch.copyWith(thickness: thickness);
     this.thickness = thickness;
     notifyListeners();
   }
 
+  /// Sets the thickness of the eraser
   void setEraserThickness(double thickness) {
     eraserThickness = thickness;
     if (currentSketch is EraserSketch) {
@@ -92,15 +87,48 @@ class DrawingBoardController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Returns a JSON representation of the current board
+  ///
+  /// Uses the default serializer if none is provided
   Map<String, dynamic> save() {
     final board = Board(
       sketches: sketches,
     );
 
-    return board.serialize();
+    return board.serialize(serializer: serializer);
   }
 
+  /// Loads a board from a JSON representation
+  ///
+  /// Example:
+  /// ```json
+  /// {
+  ///     "sketches": [
+  ///      {
+  ///          "type": "pencil",
+  ///          "points": [
+  ///              {
+  ///                  "x": 71.14285714285714,
+  ///                  "y": 148.85714285714286
+  ///              },
+  ///             ...
+  ///          ],
+  ///          "color": null,
+  ///          "thickness": 2.0
+  ///      },
+  /// }
+  /// ```
   void load(Board board) {
     setSketches(board.sketches);
+  }
+
+   void undo() {
+    undoService.undo();
+    notifyListeners();
+  }
+
+  void redo() {
+    undoService.redo();
+    notifyListeners();
   }
 }

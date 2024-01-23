@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paper_board/src/drawing/shapes/sketch_base.dart';
 
 class PencilSketch extends SketchBase {
-  PencilSketch({
+  const PencilSketch({
     required super.points,
     super.color,
     super.thickness,
@@ -25,8 +25,7 @@ class PencilSketch extends SketchBase {
   }
 
   @override
-  void sanitize() {
-    // remove points where the distance between them is less than 0.5
+  PencilSketch sanitize() {
     final sanitizedPoints = <Offset>{...points};
     for (var i = 0; i < points.length - 1; i++) {
       final p1 = points[i];
@@ -37,11 +36,11 @@ class PencilSketch extends SketchBase {
       }
     }
   
-    points = [...sanitizedPoints];
+    return copyWith(points: sanitizedPoints.toList());
   }
 
   @override
-  SketchBase copyWith({List<Offset>? points, Color? color, double? thickness, bool? filled}) {
+  PencilSketch copyWith({List<Offset>? points, Color? color, double? thickness, bool? filled}) {
     return PencilSketch(
       points: points ?? this.points,
       color: color ?? this.color,

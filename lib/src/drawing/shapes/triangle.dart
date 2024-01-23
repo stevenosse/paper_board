@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paper_board/src/drawing/shapes/sketch_base.dart';
 
 class TriangleSketch extends SketchBase {
-  TriangleSketch({
+  const TriangleSketch({
     required super.points,
     super.color,
     super.thickness,
@@ -43,10 +43,10 @@ class TriangleSketch extends SketchBase {
   }
 
   @override
-  void sanitize() => points.removeRange(1, points.length - 1);
+  TriangleSketch sanitize() => copyWith(points: [...points]..removeRange(1, points.length - 1));
 
   @override
-  SketchBase copyWith({List<Offset>? points, Color? color, double? thickness, bool? filled}) {
+  TriangleSketch copyWith({List<Offset>? points, Color? color, double? thickness, bool? filled}) {
     return TriangleSketch(
       points: points ?? this.points,
       color: color ?? this.color,

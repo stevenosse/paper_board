@@ -11,10 +11,7 @@ class AddSketchCommand implements UndoableCommand {
 
   @override
   void execute() {
-    // Sanitize the sketch before adding it to the list
-    sketch.sanitize();
-    
-    final sketches =[...controller.sketches, sketch];
+    final sketches =[...controller.sketches, sketch.sanitize()];
     controller.setSketches(sketches);
   }
 

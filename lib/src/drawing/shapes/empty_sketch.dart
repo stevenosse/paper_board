@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:paper_board/src/drawing/shapes/sketch_base.dart';
 
 class EmptySketch extends SketchBase {
-  EmptySketch({
+  const EmptySketch({
     required super.points,
     super.color,
     super.thickness,
@@ -25,9 +25,6 @@ class EmptySketch extends SketchBase {
 
   @override
   void draw(Canvas canvas, Size size) {}
-
-  @override
-  void sanitize() {}
 
   @override
   String get type => 'empty';
