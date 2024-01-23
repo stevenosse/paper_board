@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:paper_board/paper_board.dart';
 
+const kDefaultThickness = 2.0;
+const kDefaultEraserThickness = 5.0;
+
 class DrawingBoardController extends ChangeNotifier {
   final Board initialBoard;
   final SketchSerializer? serializer;
+  
 
   DrawingBoardController({
     this.initialBoard = const Board(sketches: []),
@@ -15,8 +19,8 @@ class DrawingBoardController extends ChangeNotifier {
   SketchBase currentSketch = const PencilSketch(points: []);
   List<SketchBase> sketches = [];
 
-  double thickness = 2.0;
-  double eraserThickness = 5.0;
+  double thickness = kDefaultThickness;
+  double eraserThickness = kDefaultEraserThickness;
 
   bool fillSketches = false;
 
@@ -68,7 +72,9 @@ class DrawingBoardController extends ChangeNotifier {
 
   /// Sets the thickness of the current sketch
   void setThickness(double thickness) {
-    currentSketch = currentSketch.copyWith(thickness: thickness);
+    if (currentSketch is! EraserSketch) {
+      currentSketch = currentSketch.copyWith(thickness: thickness);
+    }
     this.thickness = thickness;
     notifyListeners();
   }

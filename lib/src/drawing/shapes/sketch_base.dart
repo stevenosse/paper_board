@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
-import 'package:paper_board/src/drawing/mixins/drawable_sketch.dart';
+import 'package:paper_board/paper_board.dart';
 
 abstract class SketchBase extends Equatable with DrawableSketch {
   const SketchBase({
     required this.points,
     this.color,
-    this.thickness = 2,
+    this.thickness = kDefaultThickness,
     this.filled = false,
   });
 
