@@ -3,15 +3,19 @@ import 'package:paper_board/paper_board.dart';
 import 'package:paper_board/src/components/size_selector_widget.dart';
 import 'package:paper_board/src/models/toolbar_item.dart';
 
+typedef ToolbarItemBuilder = Widget Function(BuildContext context, ToolbarItem item, DrawingBoardController controller);
+
 class PaperBoardToolbar extends StatefulWidget {
   PaperBoardToolbar({
     super.key,
     required this.controller,
     List<ToolbarItem>? items,
+    this.itemBuilder,
   }) : items = items ?? standardToolbarItems;
 
   final DrawingBoardController controller;
   final List<ToolbarItem> items;
+  final ToolbarItemBuilder? itemBuilder;
 
   @override
   State<PaperBoardToolbar> createState() => _PaperBoardToolbarState();
@@ -47,19 +51,20 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                     color: controller.canRedo ? null : Colors.grey,
                   ),
                   for (final item in widget.items)
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Tooltip(
-                        message: item.label!,
-                        child: IconButton(
-                          color: controller.currentSketch.runtimeType == item.sketch
-                              ? Theme.of(context).primaryColor
-                              : null,
-                          icon: Icon(item.icon),
-                          onPressed: () => item.handler!(controller),
+                    widget.itemBuilder?.call(context, item, controller) ??
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Tooltip(
+                            message: item.label!,
+                            child: IconButton(
+                              color: controller.currentSketch.runtimeType == item.sketch
+                                  ? Theme.of(context).primaryColor
+                                  : null,
+                              icon: Icon(item.icon),
+                              onPressed: () => item.handler!(controller),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
                   OverlayPortal(
                     controller: _sizeSelectorOverlayController,
                     overlayChildBuilder: (context) {

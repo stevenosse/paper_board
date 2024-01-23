@@ -33,7 +33,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-   final DrawingBoardController controller = DrawingBoardController();
+  final DrawingBoardController controller = DrawingBoardController();
 
   @override
   void initState() {
