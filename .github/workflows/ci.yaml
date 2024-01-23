@@ -8,7 +8,7 @@ on:
 
 jobs:
   ci:
-    name: App Facing package
+    name: CI
 
     runs-on: macos-latest
     
