@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:paper_board/src/drawing/mixins/drawable_sketch.dart';
 
-class SketchBase with DrawableSketch {
+abstract class SketchBase with DrawableSketch {
   SketchBase({
     required this.points,
     this.color,
@@ -9,7 +9,7 @@ class SketchBase with DrawableSketch {
     this.filled = false,
   });
 
-  final List<Offset> points;
+  List<Offset> points;
   final double thickness;
   final bool filled;
   final Color? color;
@@ -30,12 +30,5 @@ class SketchBase with DrawableSketch {
     Color? color,
     bool? filled,
     double? thickness,
-  }) {
-    return SketchBase(
-      points: points ?? this.points,
-      color: color ?? this.color,
-      thickness: thickness ?? this.thickness,
-      filled: filled ?? this.filled,
-    );
-  }
+  });
 }
