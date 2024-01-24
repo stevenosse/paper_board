@@ -15,8 +15,9 @@ class DrawingBoardController extends ChangeNotifier {
   })  : undoService = undoService ?? UndoService(),
         sketches = initialBoard.sketches;
 
-  SketchBase currentSketch = const PencilSketch(points: []);
+  late SketchBase currentSketch =  PencilSketch(points: const [], color: sketchColor);
   List<SketchBase> sketches = [];
+  Color sketchColor = Colors.black;
 
   double thickness = kDefaultThickness;
   double eraserThickness = kDefaultEraserThickness;
@@ -27,6 +28,14 @@ class DrawingBoardController extends ChangeNotifier {
 
   bool get canUndo => undoService.canUndo;
   bool get canRedo => undoService.canRedo;
+
+  void setSketchColor(Color color) {
+    if (currentSketch is! EraserSketch) {
+      currentSketch = currentSketch.copyWith(color: color);
+    }
+    sketchColor = color;
+    notifyListeners();
+  }
 
   void setSketch(SketchBase sketch) {
     if (sketch is EraserSketch) {

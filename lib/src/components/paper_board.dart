@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:paper_board/paper_board.dart';
 import 'package:paper_board/src/drawing/painters/paper_board_painter.dart';
 import 'package:paper_board/src/drawing/painters/sketch_painter.dart';
-import 'package:paper_board/src/theme/paper_board_theme.dart';
 
 class PaperBoard extends StatefulWidget {
   const PaperBoard({
@@ -20,6 +19,12 @@ class PaperBoard extends StatefulWidget {
 
 class _PaperBoardState extends State<PaperBoard> {
   late final DrawingBoardController controller = widget.controller ?? DrawingBoardController();
+
+  @override
+  void initState() {
+    controller.setSketchColor(widget.theme?.defaultSketchColor ?? Theme.of(context).colorScheme.onBackground);
+    super.initState();
+  }
 
   void _onPointerDown(PointerDownEvent event) {
     final box = context.findRenderObject() as RenderBox;
