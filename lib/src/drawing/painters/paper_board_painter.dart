@@ -3,11 +3,17 @@ import 'package:paper_board/paper_board.dart';
 
 class PaperBoardPainter extends CustomPainter {
   final List<SketchBase> sketches;
+  final Color? backgroundColor;
 
-  PaperBoardPainter({required this.sketches});
+  PaperBoardPainter({
+    required this.sketches,
+    this.backgroundColor,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
+    canvas.drawColor(backgroundColor ?? Colors.white, BlendMode.src);
+    
     canvas.saveLayer(Offset.zero & size, Paint());
 
     for (final sketch in sketches) {

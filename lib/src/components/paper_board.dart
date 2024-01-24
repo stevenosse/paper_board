@@ -83,6 +83,7 @@ class _PaperBoardState extends State<PaperBoard> {
                           CustomPaint(
                             size: Size.fromHeight(constraints.maxHeight),
                             painter: PaperBoardPainter(
+                              backgroundColor: widget.theme?.backgroundColor,
                               sketches: [
                                 ...controller.sketches,
                                 // This fixes the issue with eraser not working
