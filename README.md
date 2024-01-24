@@ -32,7 +32,7 @@ Add the following dependency to your `pubspec.yaml` file:
 dependencies:
   paper_board: 
     git:
-        url: git://github.com/stevenosse/paper_board.git
+      url: https://github.com/stevenosse/paper_board.git
 ```
 
 ### Example

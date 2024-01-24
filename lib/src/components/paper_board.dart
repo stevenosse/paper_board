@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:paper_board/paper_board.dart';
 import 'package:paper_board/src/drawing/painters/paper_board_painter.dart';
 import 'package:paper_board/src/drawing/painters/sketch_painter.dart';
+import 'package:paper_board/src/theme/paper_board_theme.dart';
 
 class PaperBoard extends StatefulWidget {
   const PaperBoard({
     super.key,
     this.controller,
+    this.theme,
   });
 
+  final PaperBoardTheme? theme;
   final DrawingBoardController? controller;
 
   @override
@@ -16,8 +19,7 @@ class PaperBoard extends StatefulWidget {
 }
 
 class _PaperBoardState extends State<PaperBoard> {
-  late final DrawingBoardController controller =
-      widget.controller ?? DrawingBoardController();
+  late final DrawingBoardController controller = widget.controller ?? DrawingBoardController();
 
   void _onPointerDown(PointerDownEvent event) {
     final box = context.findRenderObject() as RenderBox;
@@ -58,8 +60,8 @@ class _PaperBoardState extends State<PaperBoard> {
             Expanded(
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  // TODO: Make this configurable
-                  border: Border.all(color: Colors.white),
+                  border: Border.all(color: widget.theme?.borderColor ?? Theme.of(context).colorScheme.onSurface),
+                  color: widget.theme?.backgroundColor ?? Theme.of(context).colorScheme.background,
                 ),
                 child: RepaintBoundary(
                   child: LayoutBuilder(
@@ -72,8 +74,7 @@ class _PaperBoardState extends State<PaperBoard> {
                               sketches: [
                                 ...controller.sketches,
                                 // This fixes the issue with eraser not working
-                                if (controller.currentSketch is EraserSketch)
-                                  controller.currentSketch
+                                if (controller.currentSketch is EraserSketch) controller.currentSketch
                               ],
                             ),
                           ),
@@ -83,8 +84,7 @@ class _PaperBoardState extends State<PaperBoard> {
                             onPointerDown: _onPointerDown,
                             child: CustomPaint(
                               size: Size.fromHeight(constraints.maxHeight),
-                              painter: SketchPainter(
-                                  sketch: controller.currentSketch),
+                              painter: SketchPainter(sketch: controller.currentSketch),
                             ),
                           )
                         ],
