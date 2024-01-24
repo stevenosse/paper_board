@@ -15,10 +15,10 @@ class DrawingBoardController extends ChangeNotifier {
   })  : undoService = undoService ?? UndoService(),
         sketches = initialBoard.sketches;
 
-  late SketchBase currentSketch =
-      PencilSketch(points: const [], color: sketchColor);
   List<SketchBase> sketches = [];
-  Color sketchColor = Colors.black;
+  late Color sketchColor =
+      WidgetsBinding.instance.platformDispatcher.platformBrightness == Brightness.dark ? Colors.white : Colors.black;
+  late SketchBase currentSketch = PencilSketch(points: const [], color: sketchColor);
 
   double thickness = kDefaultThickness;
   double eraserThickness = kDefaultEraserThickness;
@@ -29,6 +29,15 @@ class DrawingBoardController extends ChangeNotifier {
 
   bool get canUndo => undoService.canUndo;
   bool get canRedo => undoService.canRedo;
+
+  void resetCurrentSketch() {
+    currentSketch = currentSketch.copyWith(
+      points: const [],
+      color: sketchColor,
+      thickness: thickness,
+      filled: fillSketches,
+    );
+  }
 
   void setSketchColor(Color color) {
     if (currentSketch is! EraserSketch) {
@@ -42,8 +51,7 @@ class DrawingBoardController extends ChangeNotifier {
     if (sketch is EraserSketch) {
       currentSketch = sketch.copyWith(thickness: eraserThickness);
     } else {
-      currentSketch =
-          sketch.copyWith(thickness: thickness, filled: fillSketches);
+      currentSketch = sketch.copyWith(thickness: thickness, filled: fillSketches);
     }
     notifyListeners();
   }

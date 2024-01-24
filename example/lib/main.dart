@@ -17,10 +17,12 @@ class MyApp extends StatelessWidget {
       title: 'Paper Board Demo',
       theme: ThemeData.light().copyWith(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
       ),
       darkTheme: ThemeData.dark().copyWith(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        scaffoldBackgroundColor: Colors.black,
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,

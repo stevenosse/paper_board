@@ -30,6 +30,7 @@ void main() {
     test('Sketches are serialized with default values', () {
       const sketch = PencilSketch(
         points: [Offset(1, 1)],
+        color: Colors.black,
       );
 
       final json = serializer.serialize(sketch);

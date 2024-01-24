@@ -5,7 +5,7 @@ import 'package:paper_board/src/drawing/shapes/sketch_base.dart';
 class EmptySketch extends SketchBase {
   const EmptySketch({
     required super.points,
-    super.color,
+    required super.color,
     super.thickness,
     super.filled,
   });

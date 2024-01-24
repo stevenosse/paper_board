@@ -8,7 +8,7 @@ class SketchSerializer {
     return {
       'type': sketch.type,
       'points': sketch.points.map((e) => {'x': e.dx, 'y': e.dy}).toList(),
-      'color': sketch.color?.value,
+      'color': sketch.color.value,
       'thickness': sketch.thickness,
     };
   }

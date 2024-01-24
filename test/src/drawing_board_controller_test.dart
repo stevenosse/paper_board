@@ -7,7 +7,7 @@ void main() {
     test('Set sketch updates the current sketch', () {
       final controller = DrawingBoardController();
 
-      const sketch = PencilSketch(points: []);
+      const sketch = PencilSketch(points: [], color: Colors.black);
       controller.setSketch(sketch);
 
       expect(controller.currentSketch, sketch);
@@ -18,7 +18,7 @@ void main() {
         () {
       final controller = DrawingBoardController();
 
-      const sketch = PencilSketch(points: []);
+      const sketch = PencilSketch(points: [], color: Colors.black);
       controller.setSketch(sketch);
 
       expect(controller.currentSketch.thickness, kDefaultThickness);
@@ -28,7 +28,7 @@ void main() {
     test('When eraser sketch is set, it is copied with eraser thickness', () {
       final controller = DrawingBoardController();
 
-      const sketch = EraserSketch(points: []);
+      const sketch = EraserSketch(points: [], color: Colors.black);
       controller.setSketch(sketch);
 
       expect(controller.currentSketch.thickness, kDefaultEraserThickness);
@@ -37,7 +37,7 @@ void main() {
     test('Update current sketch updates the current sketch', () {
       final controller = DrawingBoardController();
 
-      const sketch = PencilSketch(points: [Offset(1, 1)]);
+      const sketch = PencilSketch(points: [Offset(1, 1)], color: Colors.black);
       controller.updateCurrentSketch(sketch);
 
       expect(controller.currentSketch, sketch);
@@ -46,7 +46,7 @@ void main() {
     test('Remove sketch removes the sketch from the list', () {
       final controller = DrawingBoardController();
 
-      const sketch = PencilSketch(points: [Offset(1, 1)]);
+      const sketch = PencilSketch(points: [Offset(1, 1)], color: Colors.black);
       controller.addSketch(sketch);
       controller.removeSketch(sketch);
 
@@ -56,7 +56,7 @@ void main() {
     test('Add sketch adds the sketch to the list', () {
       final controller = DrawingBoardController();
 
-      const sketch = PencilSketch(points: [Offset(1, 1)]);
+      const sketch = PencilSketch(points: [Offset(1, 1)], color: Colors.black);
       controller.addSketch(sketch);
 
       expect(controller.sketches, [sketch]);
@@ -65,7 +65,7 @@ void main() {
     test('Set sketches sets the sketches', () {
       final controller = DrawingBoardController();
 
-      const sketch = PencilSketch(points: [Offset(1, 1)]);
+      const sketch = PencilSketch(points: [Offset(1, 1)], color: Colors.black);
       controller.setSketches([sketch]);
 
       expect(controller.sketches, [sketch]);
@@ -82,7 +82,7 @@ void main() {
     test('Set fill sketches updates the current sketch', () {
       final controller = DrawingBoardController();
 
-      const sketch = PencilSketch(points: [Offset(1, 1)]);
+      const sketch = PencilSketch(points: [Offset(1, 1)], color: Colors.black);
       controller.setSketch(sketch);
       controller.setFillSketches(true);
 
@@ -94,7 +94,7 @@ void main() {
         () {
       final controller = DrawingBoardController();
 
-      const sketch = EraserSketch(points: [Offset(1, 1)]);
+      const sketch = EraserSketch(points: [Offset(1, 1)], color: Colors.black);
       controller.setSketch(sketch);
       controller.setFillSketches(true);
 
@@ -112,7 +112,7 @@ void main() {
     test('Set thickness updates the current sketch', () {
       final controller = DrawingBoardController();
 
-      const sketch = PencilSketch(points: [Offset(1, 1)]);
+      const sketch = PencilSketch(points: [Offset(1, 1)], color: Colors.black);
       controller.setSketch(sketch);
       controller.setThickness(10);
 
@@ -123,7 +123,7 @@ void main() {
         () {
       final controller = DrawingBoardController();
 
-      const sketch = EraserSketch(points: [Offset(1, 1)]);
+      const sketch = EraserSketch(points: [Offset(1, 1)], color: Colors.black);
       controller.setSketch(sketch);
       controller.setThickness(10);
 
@@ -136,7 +136,7 @@ void main() {
       expect(controller.canUndo, false);
 
       controller.undoService.execute(AddSketchCommand(
-        sketch: const PencilSketch(points: [Offset(1, 1)]),
+        sketch: const PencilSketch(points: [Offset(1, 1)], color: Colors.black),
         controller: controller,
       ));
 
@@ -149,7 +149,7 @@ void main() {
       expect(controller.canRedo, false);
 
       controller.undoService.execute(AddSketchCommand(
-        sketch: const PencilSketch(points: [Offset(1, 1)]),
+        sketch: const PencilSketch(points: [Offset(1, 1)], color: Colors.black),
         controller: controller,
       ));
 
@@ -166,7 +166,7 @@ void main() {
       expect(controller.sketches, isEmpty);
 
       controller.undoService.execute(AddSketchCommand(
-        sketch: const PencilSketch(points: [Offset(1, 1)]),
+        sketch: const PencilSketch(points: [Offset(1, 1)], color: Colors.black),
         controller: controller,
       ));
 
@@ -183,7 +183,7 @@ void main() {
       expect(controller.sketches, isEmpty);
 
       controller.undoService.execute(AddSketchCommand(
-        sketch: const PencilSketch(points: [Offset(1, 1)]),
+        sketch: const PencilSketch(points: [Offset(1, 1)], color: Colors.black),
         controller: controller,
       ));
 
@@ -204,7 +204,7 @@ void main() {
       expect(controller.sketches, isEmpty);
 
       controller.undoService.execute(AddSketchCommand(
-        sketch: const PencilSketch(points: [Offset(1, 1)]),
+        sketch: const PencilSketch(points: [Offset(1, 1)], color: Colors.black),
         controller: controller,
       ));
 
@@ -232,7 +232,7 @@ void main() {
     test('Set color updates the current sketch', () {
       final controller = DrawingBoardController();
 
-      const sketch = PencilSketch(points: [Offset(1, 1)]);
+      const sketch = PencilSketch(points: [Offset(1, 1)], color: Colors.black);
       controller.setSketch(sketch);
       controller.setSketchColor(Colors.red);
 
@@ -244,7 +244,7 @@ void main() {
         () {
       final controller = DrawingBoardController();
 
-      const sketch = EraserSketch(points: [Offset(1, 1)]);
+      const sketch = EraserSketch(points: [Offset(1, 1)], color: Colors.black);
       controller.setSketch(sketch);
       controller.setSketchColor(Colors.red);
 

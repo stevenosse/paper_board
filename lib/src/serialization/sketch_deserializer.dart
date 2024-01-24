@@ -11,7 +11,7 @@ class SketchDeserializer {
           points: (json['points'] as List<dynamic>)
               .map((e) => Offset(e['x'], e['y']))
               .toList(),
-          color: json['color'] == null ? null : Color(json['color']),
+          color: json['color'] == null ? Colors.black : Color(json['color']),
           thickness: json['thickness'] ?? kDefaultThickness,
           filled: json['filled'] ?? false,
         ),
@@ -19,7 +19,7 @@ class SketchDeserializer {
           points: (json['points'] as List<dynamic>)
               .map((e) => Offset(e['x'], e['y']))
               .toList(),
-          color: json['color'] == null ? null : Color(json['color']),
+          color: json['color'] == null ? Colors.black : Color(json['color']),
           thickness: json['thickness'] ?? kDefaultThickness,
           filled: json['filled'] ?? false,
         ),
@@ -27,7 +27,7 @@ class SketchDeserializer {
           points: (json['points'] as List<dynamic>)
               .map((e) => Offset(e['x'], e['y']))
               .toList(),
-          color: json['color'] == null ? null : Color(json['color']),
+          color: json['color'] == null ? Colors.black : Color(json['color']),
           thickness: json['thickness'] ?? kDefaultThickness,
           filled: json['filled'] ?? false,
         ),
@@ -35,7 +35,7 @@ class SketchDeserializer {
           points: (json['points'] as List<dynamic>)
               .map((e) => Offset(e['x'], e['y']))
               .toList(),
-          color: json['color'] == null ? null : Color(json['color']),
+          color: json['color'] == null ? Colors.black : Color(json['color']),
           thickness: json['thickness'] ?? kDefaultThickness,
           filled: json['filled'] ?? false,
         ),
@@ -43,7 +43,7 @@ class SketchDeserializer {
           points: (json['points'] as List<dynamic>)
               .map((e) => Offset(e['x'], e['y']))
               .toList(),
-          color: json['color'] == null ? null : Color(json['color']),
+          color: json['color'] == null ? Colors.black : Color(json['color']),
           thickness: json['thickness'] ?? kDefaultThickness,
           filled: json['filled'] ?? false,
         ),
@@ -51,7 +51,7 @@ class SketchDeserializer {
           points: (json['points'] as List<dynamic>)
               .map((e) => Offset(e['x'], e['y']))
               .toList(),
-          color: json['color'] == null ? null : Color(json['color']),
+          color: json['color'] == null ? Colors.black : Color(json['color']),
           thickness: json['thickness'] ?? kDefaultThickness,
           filled: json['filled'] ?? false,
         ),
@@ -59,7 +59,7 @@ class SketchDeserializer {
           points: (json['points'] as List<dynamic>)
               .map((e) => Offset(e['x'], e['y']))
               .toList(),
-          color: json['color'] == null ? null : Color(json['color']),
+          color: json['color'] == null ? Colors.black : Color(json['color']),
           thickness: json['thickness'] ?? kDefaultThickness,
           filled: json['filled'] ?? false,
         )

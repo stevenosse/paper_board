@@ -54,7 +54,7 @@ class _PaperBoardState extends State<PaperBoard> {
       points: [...controller.currentSketch.points, offset],
     );
     controller.addSketch(sketch);
-    controller.currentSketch = controller.currentSketch.copyWith(points: []);
+    controller.resetCurrentSketch();
   }
 
   @override
@@ -68,7 +68,6 @@ class _PaperBoardState extends State<PaperBoard> {
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   border: Border.all(color: widget.theme?.borderColor ?? Theme.of(context).colorScheme.onSurface),
-                  color: widget.theme?.backgroundColor ?? Theme.of(context).colorScheme.background,
                 ),
                 child: LayoutBuilder(
                   builder: (context, constraints) {
@@ -78,7 +77,8 @@ class _PaperBoardState extends State<PaperBoard> {
                           CustomPaint(
                             size: Size.fromHeight(constraints.maxHeight),
                             painter: PaperBoardPainter(
-                              backgroundColor: widget.theme?.backgroundColor,
+                              backgroundColor:
+                                  widget.theme?.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
                               sketches: [
                                 ...controller.sketches,
                                 // This fixes the issue with eraser not working
@@ -93,7 +93,7 @@ class _PaperBoardState extends State<PaperBoard> {
                             child: CustomPaint(
                               size: Size.fromHeight(constraints.maxHeight),
                               painter: SketchPainter(
-                                sketch: controller.currentSketch,
+                                sketch: controller.currentSketch.prepare(),
                               ),
                             ),
                           )

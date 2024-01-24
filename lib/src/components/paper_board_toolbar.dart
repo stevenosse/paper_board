@@ -4,7 +4,10 @@ import 'package:paper_board/src/components/size_selector_widget.dart';
 import 'package:paper_board/src/models/toolbar_item.dart';
 
 typedef ToolbarItemBuilder = Widget Function(
-    BuildContext context, ToolbarItem item, DrawingBoardController controller);
+  BuildContext context,
+  ToolbarItem item,
+  DrawingBoardController controller,
+);
 
 class PaperBoardToolbar extends StatefulWidget {
   PaperBoardToolbar({
@@ -58,8 +61,7 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                           child: Tooltip(
                             message: item.label!,
                             child: IconButton(
-                              color: controller.currentSketch.runtimeType ==
-                                      item.sketch
+                              color: controller.currentSketch.runtimeType == item.sketch
                                   ? Theme.of(context).colorScheme.primary
                                   : Theme.of(context).colorScheme.onSurface,
                               icon: Icon(item.icon),
@@ -75,8 +77,7 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                         bottom: 100,
                         child: SizeSelectorWidget(
                           initialSize: controller.currentSketch.thickness,
-                          onSizeChanged: (size) =>
-                              controller.setThickness(size),
+                          onSizeChanged: (size) => controller.setThickness(size),
                         ),
                       );
                     },
@@ -86,8 +87,7 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                         message: 'Size',
                         child: IconButton(
                           icon: const Icon(Icons.format_size),
-                          onPressed: () =>
-                              _sizeSelectorOverlayController.toggle(),
+                          onPressed: () => _sizeSelectorOverlayController.toggle(),
                         ),
                       ),
                     ),
@@ -101,8 +101,7 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                         bottom: 100,
                         child: SizeSelectorWidget(
                           initialSize: controller.eraserThickness,
-                          onSizeChanged: (size) =>
-                              controller.setEraserThickness(size),
+                          onSizeChanged: (size) => controller.setEraserThickness(size),
                         ),
                       );
                     },
@@ -112,8 +111,7 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                         message: 'Eraser Size',
                         child: IconButton(
                           icon: const Icon(Icons.foundation),
-                          onPressed: () =>
-                              _eraserSizeSelectorOverlayController.toggle(),
+                          onPressed: () => _eraserSizeSelectorOverlayController.toggle(),
                         ),
                       ),
                     ),

@@ -4,14 +4,13 @@ import 'package:paper_board/src/drawing/shapes/sketch_base.dart';
 class EraserSketch extends SketchBase {
   const EraserSketch({
     required super.points,
-    super.color,
+    required super.color,
     super.thickness,
     super.filled,
   });
 
   @override
-  SketchBase copyWith(
-      {List<Offset>? points, Color? color, double? thickness, bool? filled}) {
+  SketchBase copyWith({List<Offset>? points, Color? color, double? thickness, bool? filled}) {
     return EraserSketch(
       points: points ?? this.points,
       color: color ?? this.color,
@@ -23,7 +22,7 @@ class EraserSketch extends SketchBase {
   @override
   void draw(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = color ?? Colors.white
+      ..color = color
       ..strokeWidth = thickness
       ..blendMode = BlendMode.clear
       ..style = PaintingStyle.stroke;

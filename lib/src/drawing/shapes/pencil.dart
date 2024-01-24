@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:paper_board/src/drawing/shapes/sketch_base.dart';
 
+const kShadeTreshold = 200;
+
 class PencilSketch extends SketchBase {
   const PencilSketch({
     required super.points,
-    super.color,
+    required super.color,
     super.thickness,
     super.filled,
   });
@@ -15,7 +17,7 @@ class PencilSketch extends SketchBase {
   @override
   void draw(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = color ?? Colors.black
+      ..color = color
       ..strokeWidth = thickness
       ..style = PaintingStyle.stroke;
 
@@ -25,8 +27,7 @@ class PencilSketch extends SketchBase {
   }
 
   @override
-  PencilSketch copyWith(
-      {List<Offset>? points, Color? color, double? thickness, bool? filled}) {
+  PencilSketch copyWith({List<Offset>? points, Color? color, double? thickness, bool? filled}) {
     return PencilSketch(
       points: points ?? this.points,
       color: color ?? this.color,

@@ -4,7 +4,7 @@ import 'package:paper_board/src/drawing/shapes/sketch_base.dart';
 final class RectangleSketch extends SketchBase {
   const RectangleSketch({
     required super.points,
-    super.color,
+    required super.color,
     super.thickness,
     super.filled,
   });
@@ -15,7 +15,7 @@ final class RectangleSketch extends SketchBase {
   @override
   void draw(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = color ?? Colors.black
+      ..color = color
       ..strokeWidth = thickness
       ..style = filled ? PaintingStyle.fill : PaintingStyle.stroke;
 
