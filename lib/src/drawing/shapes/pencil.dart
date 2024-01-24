@@ -25,21 +25,6 @@ class PencilSketch extends SketchBase {
   }
 
   @override
-  PencilSketch sanitize() {
-    final sanitizedPoints = <Offset>{...points};
-    for (var i = 0; i < points.length - 1; i++) {
-      final p1 = points[i];
-      final p2 = points[i + 1];
-      final distance = (p1.distance - p2.distance).abs();
-      if (distance < 0.5) {
-        sanitizedPoints.remove(p1);
-      }
-    }
-
-    return copyWith(points: sanitizedPoints.toList());
-  }
-
-  @override
   PencilSketch copyWith(
       {List<Offset>? points, Color? color, double? thickness, bool? filled}) {
     return PencilSketch(

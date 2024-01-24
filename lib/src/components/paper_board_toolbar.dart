@@ -44,12 +44,12 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                   IconButton(
                     onPressed: () => controller.undo(),
                     icon: const Icon(Icons.undo),
-                    color: controller.canUndo ? null : Colors.grey,
+                    color: controller.canUndo ? Theme.of(context).colorScheme.onSurface : Colors.grey,
                   ),
                   IconButton(
                     onPressed: () => controller.redo(),
                     icon: const Icon(Icons.redo),
-                    color: controller.canRedo ? null : Colors.grey,
+                    color: controller.canRedo ? Theme.of(context).colorScheme.onSurface : Colors.grey,
                   ),
                   for (final item in widget.items)
                     widget.itemBuilder?.call(context, item, controller) ??
@@ -60,8 +60,8 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                             child: IconButton(
                               color: controller.currentSketch.runtimeType ==
                                       item.sketch
-                                  ? Theme.of(context).primaryColor
-                                  : null,
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Theme.of(context).colorScheme.onSurface,
                               icon: Icon(item.icon),
                               onPressed: () => item.handler!(controller),
                             ),

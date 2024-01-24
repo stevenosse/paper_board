@@ -18,14 +18,12 @@ class PaperBoard extends StatefulWidget {
 }
 
 class _PaperBoardState extends State<PaperBoard> {
-  late final DrawingBoardController controller =
-      widget.controller ?? DrawingBoardController();
+  late final DrawingBoardController controller = widget.controller ?? DrawingBoardController();
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      controller.setSketchColor(widget.theme?.defaultSketchColor ??
-          Theme.of(context).colorScheme.onBackground);
+      controller.setSketchColor(widget.theme?.defaultSketchColor ?? Theme.of(context).colorScheme.onBackground);
     });
     super.initState();
   }
@@ -69,39 +67,38 @@ class _PaperBoardState extends State<PaperBoard> {
             Expanded(
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  border: Border.all(
-                      color: widget.theme?.borderColor ??
-                          Theme.of(context).colorScheme.onSurface),
-                  color: widget.theme?.backgroundColor ??
-                      Theme.of(context).colorScheme.background,
+                  border: Border.all(color: widget.theme?.borderColor ?? Theme.of(context).colorScheme.onSurface),
+                  color: widget.theme?.backgroundColor ?? Theme.of(context).colorScheme.background,
                 ),
                 child: LayoutBuilder(
                   builder: (context, constraints) {
-                    return Stack(
-                      children: [
-                        CustomPaint(
-                          size: Size.fromHeight(constraints.maxHeight),
-                          painter: PaperBoardPainter(
-                            backgroundColor: widget.theme?.backgroundColor,
-                            sketches: [
-                              ...controller.sketches,
-                              // This fixes the issue with eraser not working
-                              if (controller.currentSketch is EraserSketch)
-                                controller.currentSketch
-                            ],
-                          ),
-                        ),
-                        Listener(
-                          onPointerUp: _onPointerUp,
-                          onPointerMove: _onPointerMove,
-                          onPointerDown: _onPointerDown,
-                          child: CustomPaint(
+                    return RepaintBoundary(
+                      child: Stack(
+                        children: [
+                          CustomPaint(
                             size: Size.fromHeight(constraints.maxHeight),
-                            painter: SketchPainter(
-                                sketch: controller.currentSketch),
+                            painter: PaperBoardPainter(
+                              backgroundColor: widget.theme?.backgroundColor,
+                              sketches: [
+                                ...controller.sketches,
+                                // This fixes the issue with eraser not working
+                                if (controller.currentSketch is EraserSketch) controller.currentSketch
+                              ],
+                            ),
                           ),
-                        )
-                      ],
+                          Listener(
+                            onPointerUp: _onPointerUp,
+                            onPointerMove: _onPointerMove,
+                            onPointerDown: _onPointerDown,
+                            child: CustomPaint(
+                              size: Size.fromHeight(constraints.maxHeight),
+                              painter: SketchPainter(
+                                sketch: controller.currentSketch,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     );
                   },
                 ),
