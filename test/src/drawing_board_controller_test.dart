@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paper_board/paper_board.dart';
 
@@ -226,6 +227,28 @@ void main() {
       controller.load(Board.deserialize({"sketches": []}));
 
       expect(controller.sketches, isEmpty);
+    });
+
+    test('Set color updates the current sketch', () {
+      final controller = DrawingBoardController();
+
+      const sketch = PencilSketch(points: [Offset(1, 1)]);
+      controller.setSketch(sketch);
+      controller.setSketchColor(Colors.red);
+
+      expect(controller.currentSketch.color, Colors.red);
+    });
+
+
+    test('Set color does not update the current sketch if it is an eraser',
+        () {
+      final controller = DrawingBoardController();
+
+      const sketch = EraserSketch(points: [Offset(1, 1)]);
+      controller.setSketch(sketch);
+      controller.setSketchColor(Colors.red);
+
+      expect(controller.currentSketch.color, isNull);
     });
   });
 }

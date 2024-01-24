@@ -15,7 +15,8 @@ class DrawingBoardController extends ChangeNotifier {
   })  : undoService = undoService ?? UndoService(),
         sketches = initialBoard.sketches;
 
-  late SketchBase currentSketch =  PencilSketch(points: const [], color: sketchColor);
+  late SketchBase currentSketch =
+      PencilSketch(points: const [], color: sketchColor);
   List<SketchBase> sketches = [];
   Color sketchColor = Colors.black;
 
