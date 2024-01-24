@@ -18,3 +18,4 @@ export 'src/services/undo/commands/undoable_command.dart';
 export 'src/services/undo/undo_service.dart';
 export 'src/serialization/sketch_deserializer.dart';
 export 'src/serialization/sketch_serializer.dart';
+export 'src/theme/paper_board_theme.dart';
