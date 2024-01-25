@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:paper_board/paper_board.dart';
 
 typedef ActionHandler = void Function(DrawingBoardController controller);
@@ -20,43 +21,49 @@ class ToolbarItem {
 final standardToolbarItems = [
   ToolbarItem(
     label: 'Pencil',
-    icon: Icons.edit,
+    icon: LineIcons.alternatePencil,
     sketch: PencilSketch,
-    handler: (controller) => controller.setSketch(const PencilSketch(points: [], color: Colors.black)),
+    handler: (controller) => controller
+        .setSketch(const PencilSketch(points: [], color: Colors.black)),
   ),
   ToolbarItem(
     label: 'Eraser',
-    icon: Icons.stop_rounded,
+    icon: LineIcons.eraser,
     sketch: EraserSketch,
-    handler: (controller) => controller.setSketch(const EraserSketch(points: [], color: Colors.white)),
+    handler: (controller) => controller
+        .setSketch(const EraserSketch(points: [], color: Colors.white)),
   ),
   ToolbarItem(
     label: 'Rectangle',
-    icon: Icons.crop_square,
+    icon: LineIcons.square,
     sketch: RectangleSketch,
-    handler: (controller) => controller.setSketch(const RectangleSketch(points: [], color: Colors.black)),
+    handler: (controller) => controller
+        .setSketch(const RectangleSketch(points: [], color: Colors.black)),
   ),
   ToolbarItem(
     label: 'Sphere',
-    icon: Icons.circle_outlined,
+    icon: LineIcons.circle,
     sketch: SphereSketch,
-    handler: (controller) => controller.setSketch(const SphereSketch(points: [], color: Colors.black)),
+    handler: (controller) => controller
+        .setSketch(const SphereSketch(points: [], color: Colors.black)),
   ),
   ToolbarItem(
     label: 'Triangle',
     icon: Icons.change_history,
     sketch: TriangleSketch,
-    handler: (controller) => controller.setSketch(const TriangleSketch(points: [], color: Colors.black)),
+    handler: (controller) => controller
+        .setSketch(const TriangleSketch(points: [], color: Colors.black)),
   ),
   ToolbarItem(
     label: 'Line',
-    icon: Icons.line_style,
+    icon: LineIcons.lineChart,
     sketch: LineSketch,
-    handler: (controller) => controller.setSketch(const LineSketch(points: [], color: Colors.black)),
+    handler: (controller) =>
+        controller.setSketch(const LineSketch(points: [], color: Colors.black)),
   ),
   ToolbarItem(
     label: 'Clear',
-    icon: Icons.clear,
+    icon: LineIcons.trash,
     handler: (controller) => controller.clear(),
   ),
 ];
