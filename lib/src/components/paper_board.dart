@@ -18,12 +18,14 @@ class PaperBoard extends StatefulWidget {
 }
 
 class _PaperBoardState extends State<PaperBoard> {
-  late final DrawingBoardController controller = widget.controller ?? DrawingBoardController();
+  late final DrawingBoardController controller =
+      widget.controller ?? DrawingBoardController();
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      controller.setSketchColor(widget.theme?.defaultSketchColor ?? Theme.of(context).colorScheme.onBackground);
+      controller.setSketchColor(widget.theme?.defaultSketchColor ??
+          Theme.of(context).colorScheme.onBackground);
     });
     super.initState();
   }
@@ -67,7 +69,9 @@ class _PaperBoardState extends State<PaperBoard> {
             Expanded(
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  border: Border.all(color: widget.theme?.borderColor ?? Theme.of(context).colorScheme.onSurface),
+                  border: Border.all(
+                      color: widget.theme?.borderColor ??
+                          Theme.of(context).colorScheme.onSurface),
                 ),
                 child: LayoutBuilder(
                   builder: (context, constraints) {
@@ -77,12 +81,13 @@ class _PaperBoardState extends State<PaperBoard> {
                           CustomPaint(
                             size: Size.fromHeight(constraints.maxHeight),
                             painter: PaperBoardPainter(
-                              backgroundColor:
-                                  widget.theme?.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
+                              backgroundColor: widget.theme?.backgroundColor ??
+                                  Theme.of(context).scaffoldBackgroundColor,
                               sketches: [
                                 ...controller.sketches,
                                 // This fixes the issue with eraser not working
-                                if (controller.currentSketch is EraserSketch) controller.currentSketch
+                                if (controller.currentSketch is EraserSketch)
+                                  controller.currentSketch
                               ],
                             ),
                           ),

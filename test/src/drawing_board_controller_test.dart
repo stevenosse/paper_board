@@ -239,9 +239,7 @@ void main() {
       expect(controller.currentSketch.color, Colors.red);
     });
 
-
-    test('Set color does not update the current sketch if it is an eraser',
-        () {
+    test('Set color does not update the current sketch if it is an eraser', () {
       final controller = DrawingBoardController();
 
       const sketch = EraserSketch(points: [Offset(1, 1)], color: Colors.black);

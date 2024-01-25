@@ -27,7 +27,8 @@ class PencilSketch extends SketchBase {
   }
 
   @override
-  PencilSketch copyWith({List<Offset>? points, Color? color, double? thickness, bool? filled}) {
+  PencilSketch copyWith(
+      {List<Offset>? points, Color? color, double? thickness, bool? filled}) {
     return PencilSketch(
       points: points ?? this.points,
       color: color ?? this.color,

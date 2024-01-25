@@ -17,8 +17,12 @@ class DrawingBoardController extends ChangeNotifier {
 
   List<SketchBase> sketches = [];
   late Color sketchColor =
-      WidgetsBinding.instance.platformDispatcher.platformBrightness == Brightness.dark ? Colors.white : Colors.black;
-  late SketchBase currentSketch = PencilSketch(points: const [], color: sketchColor);
+      WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+              Brightness.dark
+          ? Colors.white
+          : Colors.black;
+  late SketchBase currentSketch =
+      PencilSketch(points: const [], color: sketchColor);
 
   double thickness = kDefaultThickness;
   double eraserThickness = kDefaultEraserThickness;
@@ -51,7 +55,8 @@ class DrawingBoardController extends ChangeNotifier {
     if (sketch is EraserSketch) {
       currentSketch = sketch.copyWith(thickness: eraserThickness);
     } else {
-      currentSketch = sketch.copyWith(thickness: thickness, filled: fillSketches);
+      currentSketch =
+          sketch.copyWith(thickness: thickness, filled: fillSketches);
     }
     notifyListeners();
   }

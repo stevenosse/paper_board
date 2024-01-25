@@ -33,7 +33,8 @@ abstract class SketchBase extends Equatable with DrawableSketch {
   /// Wether to invert colors (to be used in dark mode) or any other preparation
   SketchBase prepare() => copyWith(
         color: switch ((
-          WidgetsBinding.instance.platformDispatcher.platformBrightness == Brightness.dark,
+          WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+              Brightness.dark,
           isShadeOfWhite(color, kShadeTreshold),
           isShadeOfBlack(color, kShadeTreshold),
         )) {

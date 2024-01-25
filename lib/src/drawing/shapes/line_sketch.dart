@@ -25,7 +25,8 @@ class LineSketch extends SketchBase {
   }
 
   @override
-  LineSketch sanitize() => copyWith(points: [...points]..removeRange(1, points.length - 1));
+  LineSketch sanitize() =>
+      copyWith(points: [...points]..removeRange(1, points.length - 1));
 
   @override
   LineSketch copyWith({
