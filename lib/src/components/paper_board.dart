@@ -21,15 +21,6 @@ class _PaperBoardState extends State<PaperBoard> {
   late final DrawingBoardController controller =
       widget.controller ?? DrawingBoardController();
 
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      controller.setSketchColor(widget.theme?.defaultSketchColor ??
-          Theme.of(context).colorScheme.onBackground);
-    });
-    super.initState();
-  }
-
   void _onPointerDown(PointerDownEvent event) {
     final box = context.findRenderObject() as RenderBox;
     final offset = box.globalToLocal(event.position);
