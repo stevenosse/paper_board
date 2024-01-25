@@ -16,11 +16,7 @@ class DrawingBoardController extends ChangeNotifier {
         sketches = initialBoard.sketches;
 
   List<SketchBase> sketches = [];
-  late Color sketchColor =
-      WidgetsBinding.instance.platformDispatcher.platformBrightness ==
-              Brightness.dark
-          ? Colors.white
-          : Colors.black;
+  late Color sketchColor = Colors.black;
   late SketchBase currentSketch =
       PencilSketch(points: const [], color: sketchColor);
 

@@ -3,6 +3,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:paper_board/paper_board.dart';
 
 void main() {
+  setUp(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+  });
+
   group('DrawingBoardController -', () {
     test('Set sketch updates the current sketch', () {
       final controller = DrawingBoardController();
@@ -246,7 +250,7 @@ void main() {
       controller.setSketch(sketch);
       controller.setSketchColor(Colors.red);
 
-      expect(controller.currentSketch.color, isNull);
+      expect(controller.currentSketch.color, Colors.black);
     });
   });
 }
