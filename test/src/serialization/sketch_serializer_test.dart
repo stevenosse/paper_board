@@ -39,7 +39,7 @@ void main() {
       expect(json['points'], [
         {'x': 1.0, 'y': 1.0}
       ]);
-      expect(json['color'], null);
+      expect(json['color'], Colors.black.value);
       expect(json['thickness'], kDefaultThickness);
     });
   });

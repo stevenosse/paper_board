@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paper_board/paper_board.dart';
 
@@ -23,7 +24,7 @@ void main() {
 
       expect(sketch, isA<PencilSketch>());
       expect(sketch.points, [const Offset(1, 1)]);
-      expect(sketch.color, isNull);
+      expect(sketch.color, Colors.black);
       expect(sketch.thickness, 2);
       expect(sketch.filled, true);
     });
@@ -42,7 +43,7 @@ void main() {
 
       expect(sketch, isA<LineSketch>());
       expect(sketch.points, [const Offset(1, 1)]);
-      expect(sketch.color, isNull);
+      expect(sketch.color, Colors.black);
       expect(sketch.thickness, 2);
       expect(sketch.filled, true);
     });
@@ -61,7 +62,7 @@ void main() {
 
       expect(sketch, isA<EraserSketch>());
       expect(sketch.points, [const Offset(1, 1)]);
-      expect(sketch.color, isNull);
+      expect(sketch.color, Colors.black);
       expect(sketch.thickness, 2);
       expect(sketch.filled, true);
     });
@@ -80,7 +81,7 @@ void main() {
 
       expect(sketch, isA<RectangleSketch>());
       expect(sketch.points, [const Offset(1, 1)]);
-      expect(sketch.color, isNull);
+      expect(sketch.color, Colors.black);
       expect(sketch.thickness, 2);
       expect(sketch.filled, true);
     });
@@ -99,7 +100,7 @@ void main() {
 
       expect(sketch, isA<SphereSketch>());
       expect(sketch.points, [const Offset(1, 1)]);
-      expect(sketch.color, isNull);
+      expect(sketch.color, Colors.black);
       expect(sketch.thickness, 2);
       expect(sketch.filled, true);
     });
@@ -118,7 +119,7 @@ void main() {
 
       expect(sketch, isA<TriangleSketch>());
       expect(sketch.points, [const Offset(1, 1)]);
-      expect(sketch.color, isNull);
+      expect(sketch.color, Colors.black);
       expect(sketch.thickness, 2);
       expect(sketch.filled, true);
     });
@@ -137,7 +138,7 @@ void main() {
 
       expect(sketch, isA<EmptySketch>());
       expect(sketch.points, [const Offset(1, 1)]);
-      expect(sketch.color, isNull);
+      expect(sketch.color, Colors.black);
       expect(sketch.thickness, 2);
       expect(sketch.filled, true);
     });
@@ -154,7 +155,7 @@ void main() {
 
       expect(sketch, isA<EmptySketch>());
       expect(sketch.points, [const Offset(1, 1)]);
-      expect(sketch.color, isNull);
+      expect(sketch.color, Colors.black);
       expect(sketch.thickness, kDefaultThickness);
       expect(sketch.filled, false);
     });
@@ -171,7 +172,7 @@ void main() {
 
       expect(sketch, isA<EmptySketch>());
       expect(sketch.points, [const Offset(1, 1)]);
-      expect(sketch.color, isNull);
+      expect(sketch.color, Colors.black);
       expect(sketch.thickness, kDefaultThickness);
       expect(sketch.filled, false);
     });
