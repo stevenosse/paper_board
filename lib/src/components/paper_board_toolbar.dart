@@ -60,6 +60,7 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                     icon: const Icon(LineIcons.redo),
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
+                  const _Divider(),
                   for (final item in widget.items)
                     widget.itemBuilder?.call(context, item, controller) ??
                         Padding(
@@ -76,6 +77,7 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                             ),
                           ),
                         ),
+                  const _Divider(),
                   OverlayPortal(
                     controller: _sizeSelectorOverlayController,
                     overlayChildBuilder: (context) {
@@ -134,6 +136,22 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
           ),
         );
       },
+    );
+  }
+}
+
+class _Divider extends StatelessWidget {
+  const _Divider();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: kMinInteractiveDimension / 2,
+      child: VerticalDivider(
+        color: Theme.of(context).colorScheme.primaryContainer,
+        thickness: 1.0,
+        width: 1.0,
+      ),
     );
   }
 }

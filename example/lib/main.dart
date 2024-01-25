@@ -66,7 +66,11 @@ class _HomePageState extends State<HomePage> {
         heightFactor: 1.0,
         child: Column(
           children: [
-            Expanded(child: PaperBoard(controller: controller)),
+            Expanded(
+              child: PaperBoard(
+                controller: controller,
+              ),
+            ),
             PaperBoardToolbar(controller: controller),
           ],
         ),
