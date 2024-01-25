@@ -8,8 +8,10 @@ class PaperBoard extends StatefulWidget {
     super.key,
     this.controller,
     this.theme,
+    this.readOnly = false,
   });
 
+  final bool readOnly;
   final PaperBoardTheme? theme;
   final DrawingBoardController? controller;
 
@@ -58,39 +60,36 @@ class _PaperBoardState extends State<PaperBoard> {
         return Column(
           children: [
             Expanded(
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  return RepaintBoundary(
-                    child: Stack(
-                      children: [
-                        CustomPaint(
-                          size: Size.fromHeight(constraints.maxHeight),
-                          painter: PaperBoardPainter(
-                            backgroundColor: widget.theme?.backgroundColor ??
-                                Theme.of(context).scaffoldBackgroundColor,
-                            sketches: [
-                              ...controller.sketches,
-                              // This fixes the issue with eraser not working
-                              if (controller.currentSketch is EraserSketch)
-                                controller.currentSketch
-                            ],
+              child: RepaintBoundary(
+                child: Stack(
+                  children: [
+                    CustomPaint(
+                      size: Size.infinite,
+                      painter: PaperBoardPainter(
+                        backgroundColor: widget.theme?.backgroundColor ??
+                            Theme.of(context).scaffoldBackgroundColor,
+                        sketches: [
+                          ...controller.sketches,
+                          // This fixes the issue with eraser not working
+                          if (controller.currentSketch is EraserSketch)
+                            controller.currentSketch
+                        ],
+                      ),
+                    ),
+                    if (!widget.readOnly)
+                      Listener(
+                        onPointerUp: _onPointerUp,
+                        onPointerMove: _onPointerMove,
+                        onPointerDown: _onPointerDown,
+                        child: CustomPaint(
+                          size: Size.infinite,
+                          painter: SketchPainter(
+                            sketch: controller.currentSketch.prepare(),
                           ),
                         ),
-                        Listener(
-                          onPointerUp: _onPointerUp,
-                          onPointerMove: _onPointerMove,
-                          onPointerDown: _onPointerDown,
-                          child: CustomPaint(
-                            size: Size.fromHeight(constraints.maxHeight),
-                            painter: SketchPainter(
-                              sketch: controller.currentSketch.prepare(),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  );
-                },
+                      )
+                  ],
+                ),
               ),
             ),
           ],
