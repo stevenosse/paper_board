@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:paper_board/paper_board.dart';
 import 'package:paper_board/src/components/size_selector_widget.dart';
 import 'package:paper_board/src/models/toolbar_item.dart';
@@ -15,11 +16,13 @@ class PaperBoardToolbar extends StatefulWidget {
     required this.controller,
     List<ToolbarItem>? items,
     this.itemBuilder,
+    this.backgroundColor,
   }) : items = items ?? standardToolbarItems;
 
   final DrawingBoardController controller;
   final List<ToolbarItem> items;
   final ToolbarItemBuilder? itemBuilder;
+  final Color? backgroundColor;
 
   @override
   State<PaperBoardToolbar> createState() => _PaperBoardToolbarState();
@@ -38,6 +41,7 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
       builder: (context, child) {
         return Card(
           margin: const EdgeInsets.all(12.0),
+          color: widget.backgroundColor,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(
@@ -47,12 +51,16 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                   IconButton(
                     onPressed: () => controller.undo(),
                     icon: const Icon(Icons.undo),
-                    color: controller.canUndo ? Theme.of(context).colorScheme.onSurface : Colors.grey,
+                    color: controller.canUndo
+                        ? Theme.of(context).colorScheme.onSurface
+                        : Colors.grey,
                   ),
                   IconButton(
                     onPressed: () => controller.redo(),
                     icon: const Icon(Icons.redo),
-                    color: controller.canRedo ? Theme.of(context).colorScheme.onSurface : Colors.grey,
+                    color: controller.canRedo
+                        ? Theme.of(context).colorScheme.onSurface
+                        : Colors.grey,
                   ),
                   for (final item in widget.items)
                     widget.itemBuilder?.call(context, item, controller) ??
@@ -61,7 +69,8 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                           child: Tooltip(
                             message: item.label!,
                             child: IconButton(
-                              color: controller.currentSketch.runtimeType == item.sketch
+                              color: controller.currentSketch.runtimeType ==
+                                      item.sketch
                                   ? Theme.of(context).colorScheme.primary
                                   : Theme.of(context).colorScheme.onSurface,
                               icon: Icon(item.icon),
@@ -77,7 +86,8 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                         bottom: 100,
                         child: SizeSelectorWidget(
                           initialSize: controller.currentSketch.thickness,
-                          onSizeChanged: (size) => controller.setThickness(size),
+                          onSizeChanged: (size) =>
+                              controller.setThickness(size),
                         ),
                       );
                     },
@@ -86,13 +96,14 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                       child: Tooltip(
                         message: 'Size',
                         child: IconButton(
-                          icon: const Icon(Icons.format_size),
-                          onPressed: () => _sizeSelectorOverlayController.toggle(),
+                          icon: const Icon(LineIcons.ruler),
+                          color: Theme.of(context).colorScheme.onSurface,
+                          onPressed: () =>
+                              _sizeSelectorOverlayController.toggle(),
                         ),
                       ),
                     ),
                   ),
-                  // TODO: Find better icons
                   OverlayPortal(
                     controller: _eraserSizeSelectorOverlayController,
                     overlayChildBuilder: (context) {
@@ -101,7 +112,8 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                         bottom: 100,
                         child: SizeSelectorWidget(
                           initialSize: controller.eraserThickness,
-                          onSizeChanged: (size) => controller.setEraserThickness(size),
+                          onSizeChanged: (size) =>
+                              controller.setEraserThickness(size),
                         ),
                       );
                     },
@@ -110,8 +122,10 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                       child: Tooltip(
                         message: 'Eraser Size',
                         child: IconButton(
-                          icon: const Icon(Icons.foundation),
-                          onPressed: () => _eraserSizeSelectorOverlayController.toggle(),
+                          icon: const Icon(LineIcons.rulerCombined),
+                          color: Theme.of(context).colorScheme.onSurface,
+                          onPressed: () =>
+                              _eraserSizeSelectorOverlayController.toggle(),
                         ),
                       ),
                     ),
