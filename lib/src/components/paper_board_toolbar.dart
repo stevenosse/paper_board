@@ -49,18 +49,16 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
               child: Row(
                 children: [
                   IconButton(
-                    onPressed: () => controller.undo(),
-                    icon: const Icon(Icons.undo),
-                    color: controller.canUndo
-                        ? Theme.of(context).colorScheme.onSurface
-                        : Colors.grey,
+                    onPressed:
+                        !controller.canUndo ? null : () => controller.undo(),
+                    icon: const Icon(LineIcons.undo),
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                   IconButton(
-                    onPressed: () => controller.redo(),
-                    icon: const Icon(Icons.redo),
-                    color: controller.canRedo
-                        ? Theme.of(context).colorScheme.onSurface
-                        : Colors.grey,
+                    onPressed:
+                        !controller.canRedo ? null : () => controller.redo(),
+                    icon: const Icon(LineIcons.redo),
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                   for (final item in widget.items)
                     widget.itemBuilder?.call(context, item, controller) ??
