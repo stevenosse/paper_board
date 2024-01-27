@@ -17,6 +17,7 @@ class PaperBoardPainter extends CustomPainter {
     for (final sketch in sketches) {
       if (sketch.shouldDraw) {
         final preparedSketch = sketch.prepare();
+        print(size);
         preparedSketch.draw(canvas, size);
       }
     }
