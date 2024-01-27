@@ -57,50 +57,52 @@ class _PaperBoardState extends State<PaperBoard> {
     return ListenableBuilder(
       listenable: controller,
       builder: (context, snapshot) {
-        return Column(
-          children: [
-            Expanded(
-              child: RepaintBoundary(child: LayoutBuilder(
-                builder: (context, constraints) {
-                  return Stack(
-                    children: [
-                      CustomPaint(
+        return RepaintBoundary(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return Stack(
+                children: [
+                  Container(
+                    width: constraints.maxWidth,
+                    height: constraints.maxHeight,
+                    color: widget.theme?.backgroundColor ??
+                        Theme.of(context).scaffoldBackgroundColor,
+                  ),
+                  CustomPaint(
+                    size: Size(
+                      constraints.maxWidth,
+                      constraints.maxHeight,
+                    ),
+                    painter: PaperBoardPainter(
+                      backgroundColor: widget.theme?.backgroundColor ??
+                          Theme.of(context).scaffoldBackgroundColor,
+                      sketches: [
+                        ...controller.sketches,
+                        // This fixes the issue with eraser not working
+                        if (controller.currentSketch is EraserSketch)
+                          controller.currentSketch
+                      ],
+                    ),
+                  ),
+                  if (!widget.readOnly)
+                    Listener(
+                      onPointerUp: _onPointerUp,
+                      onPointerMove: _onPointerMove,
+                      onPointerDown: _onPointerDown,
+                      child: CustomPaint(
                         size: Size(
                           constraints.maxWidth,
                           constraints.maxHeight,
                         ),
-                        painter: PaperBoardPainter(
-                          backgroundColor: widget.theme?.backgroundColor ??
-                              Theme.of(context).scaffoldBackgroundColor,
-                          sketches: [
-                            ...controller.sketches,
-                            // This fixes the issue with eraser not working
-                            if (controller.currentSketch is EraserSketch)
-                              controller.currentSketch
-                          ],
+                        painter: SketchPainter(
+                          sketch: controller.currentSketch.prepare(),
                         ),
                       ),
-                      if (!widget.readOnly)
-                        Listener(
-                          onPointerUp: _onPointerUp,
-                          onPointerMove: _onPointerMove,
-                          onPointerDown: _onPointerDown,
-                          child: CustomPaint(
-                            size: Size(
-                              constraints.maxWidth,
-                              constraints.maxHeight,
-                            ),
-                            painter: SketchPainter(
-                              sketch: controller.currentSketch.prepare(),
-                            ),
-                          ),
-                        )
-                    ],
-                  );
-                },
-              )),
-            ),
-          ],
+                    )
+                ],
+              );
+            },
+          ),
         );
       },
     );

@@ -64,17 +64,10 @@ class _HomePageState extends State<HomePage> {
       body: FractionallySizedBox(
         widthFactor: 1.0,
         heightFactor: 1.0,
-        child: Column(
-          children: [
-            Expanded(
-              child: PaperBoard(
-                controller: controller,
-              ),
-            ),
-            PaperBoardToolbar(controller: controller),
-          ],
-        ),
+        alignment: Alignment.center,
+        child: PaperBoard(controller: controller),
       ),
+      bottomNavigationBar: PaperBoardToolbar(controller: controller),
     );
   }
 }

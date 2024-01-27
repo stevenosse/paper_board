@@ -12,8 +12,6 @@ class PaperBoardPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawColor(backgroundColor ?? Colors.black, BlendMode.src);
-
     canvas.saveLayer(Offset.zero & size, Paint());
 
     for (final sketch in sketches) {
