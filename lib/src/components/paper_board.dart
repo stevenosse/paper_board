@@ -98,7 +98,7 @@ class _PaperBoardState extends State<PaperBoard> {
                           constraints.maxHeight,
                         ),
                         painter: SketchPainter(
-                          sketch: controller.currentSketch.prepare(),
+                          sketch: controller.currentSketch,
                         ),
                       ),
                     ),

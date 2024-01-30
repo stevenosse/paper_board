@@ -13,7 +13,8 @@ class SketchPainter extends CustomPainter {
     }
 
     if (sketch is! EraserSketch) {
-      sketch.draw(canvas, size);
+      final preparedSketch = sketch.prepare();
+      preparedSketch.draw(canvas, size);
     }
   }
 
