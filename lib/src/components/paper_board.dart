@@ -57,18 +57,19 @@ class _PaperBoardState extends State<PaperBoard> {
     return ListenableBuilder(
       listenable: controller,
       builder: (context, snapshot) {
-        return RepaintBoundary(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return Stack(
-                children: [
-                  Container(
-                    width: constraints.maxWidth,
-                    height: constraints.maxHeight,
-                    color: widget.theme?.backgroundColor ??
-                        Theme.of(context).scaffoldBackgroundColor,
-                  ),
-                  CustomPaint(
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            return Stack(
+              children: [
+                Container(
+                  width: constraints.maxWidth,
+                  height: constraints.maxHeight,
+                  color: widget.theme?.backgroundColor ??
+                      Theme.of(context).scaffoldBackgroundColor,
+                ),
+                RepaintBoundary(
+                  key: controller.painterKey,
+                  child: CustomPaint(
                     size: Size(
                       constraints.maxWidth,
                       constraints.maxHeight,
@@ -84,11 +85,13 @@ class _PaperBoardState extends State<PaperBoard> {
                       ],
                     ),
                   ),
-                  if (!widget.readOnly)
-                    Listener(
-                      onPointerUp: _onPointerUp,
-                      onPointerMove: _onPointerMove,
-                      onPointerDown: _onPointerDown,
+                ),
+                if (!widget.readOnly)
+                  Listener(
+                    onPointerUp: _onPointerUp,
+                    onPointerMove: _onPointerMove,
+                    onPointerDown: _onPointerDown,
+                    child: RepaintBoundary(
                       child: CustomPaint(
                         size: Size(
                           constraints.maxWidth,
@@ -98,11 +101,11 @@ class _PaperBoardState extends State<PaperBoard> {
                           sketch: controller.currentSketch.prepare(),
                         ),
                       ),
-                    )
-                ],
-              );
-            },
-          ),
+                    ),
+                  )
+              ],
+            );
+          },
         );
       },
     );

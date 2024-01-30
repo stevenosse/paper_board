@@ -17,12 +17,17 @@ class PaperBoardToolbar extends StatefulWidget {
     List<ToolbarItem>? items,
     this.itemBuilder,
     this.backgroundColor,
+    this.onExport,
   }) : items = items ?? standardToolbarItems;
 
   final DrawingBoardController controller;
   final List<ToolbarItem> items;
   final ToolbarItemBuilder? itemBuilder;
   final Color? backgroundColor;
+
+  /// Called when the user taps the export button.
+  /// The [String] argument is the base64 encoded png data.
+  final ValueChanged<String?>? onExport;
 
   @override
   State<PaperBoardToolbar> createState() => _PaperBoardToolbarState();
@@ -129,6 +134,15 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                         ),
                       ),
                     ),
+                  ),
+                  const _Divider(),
+                  IconButton(
+                    onPressed: () async {
+                      final data = await controller.getPngData();
+                      widget.onExport?.call(data);
+                    },
+                    icon: const Icon(LineIcons.image),
+                    color: Theme.of(context).colorScheme.onSurface,
                   )
                 ],
               ),

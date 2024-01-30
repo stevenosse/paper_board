@@ -18,7 +18,7 @@ The goal is to build a powerful and highly customizable drawing board.
 - Add unit tests
 - Write documentation
 - Add a ColorPicker
-- Add a CI
+- Toolbar needs to be more customizable
 
 ## Usage
 

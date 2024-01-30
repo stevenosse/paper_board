@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -173,5 +174,13 @@ class DrawingBoardController extends ChangeNotifier {
     } catch (e) {
       return null;
     }
+  }
+
+  Future<String?> getPngData() async {
+    final data = await getImageData();
+    if (data == null) {
+      return null;
+    }
+    return 'data:image/png;base64,${base64Encode(data.buffer.asUint8List())}';
   }
 }
