@@ -1,4 +1,8 @@
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:paper_board/paper_board.dart';
 
 const kDefaultThickness = 2.0;
@@ -7,6 +11,7 @@ const kDefaultEraserThickness = 5.0;
 class DrawingBoardController extends ChangeNotifier {
   final Board initialBoard;
   final SketchSerializer? serializer;
+  late GlobalKey painterKey = GlobalKey();
 
   DrawingBoardController({
     this.initialBoard = const Board(sketches: []),
@@ -155,5 +160,18 @@ class DrawingBoardController extends ChangeNotifier {
   void redo() {
     undoService.redo();
     notifyListeners();
+  }
+
+  Future<ByteData?> getImageData() async {
+    try {
+      final RenderRepaintBoundary boundary = painterKey.currentContext!
+          .findRenderObject()! as RenderRepaintBoundary;
+      final ui.Image image = await boundary.toImage(
+        pixelRatio: View.of(painterKey.currentContext!).devicePixelRatio,
+      );
+      return await image.toByteData(format: ui.ImageByteFormat.png);
+    } catch (e) {
+      return null;
+    }
   }
 }
