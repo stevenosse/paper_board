@@ -19,6 +19,7 @@ The goal is to build a powerful and highly customizable drawing board.
 - Write documentation
 - Add a ColorPicker
 - Toolbar needs to be more customizable
+- I18n
 
 ## Usage
 
