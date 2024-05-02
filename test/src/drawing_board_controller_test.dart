@@ -219,20 +219,6 @@ void main() {
       expect(controller.sketches, isEmpty);
     });
 
-    test('Serialize returns the serialized board', () {
-      final controller = DrawingBoardController();
-
-      expect(controller.save(), {"sketches": []});
-    });
-
-    test('Deserialize sets the sketches', () {
-      final controller = DrawingBoardController();
-
-      controller.load(Board.deserialize({"sketches": []}));
-
-      expect(controller.sketches, isEmpty);
-    });
-
     test('Set color updates the current sketch', () {
       final controller = DrawingBoardController();
 

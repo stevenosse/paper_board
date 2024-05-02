@@ -10,18 +10,15 @@ const kDefaultThickness = 2.0;
 const kDefaultEraserThickness = 5.0;
 
 class DrawingBoardController extends ChangeNotifier {
-  final Board initialBoard;
   final SketchSerializer? serializer;
   late GlobalKey painterKey = GlobalKey();
 
   DrawingBoardController({
-    this.initialBoard = const Board(sketches: []),
     UndoService? undoService,
     this.serializer,
-  })  : undoService = undoService ?? UndoService(),
-        sketches = initialBoard.sketches;
+  }) : undoService = undoService ?? UndoService();
 
-  List<SketchBase> sketches = [];
+  Iterable<SketchBase> sketches = [];
   late Color sketchColor = Colors.black;
   late SketchBase currentSketch =
       PencilSketch(points: const [], color: sketchColor);
@@ -81,7 +78,7 @@ class DrawingBoardController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setSketches(List<SketchBase> sketches) {
+  void setSketches(Iterable<SketchBase> sketches) {
     this.sketches = sketches;
     notifyListeners();
   }
@@ -118,17 +115,6 @@ class DrawingBoardController extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Returns a JSON representation of the current board
-  ///
-  /// Uses the default serializer if none is provided
-  Map<String, dynamic> save() {
-    final board = Board(
-      sketches: sketches,
-    );
-
-    return board.serialize(serializer: serializer);
-  }
-
   /// Loads a board from a JSON representation
   ///
   /// Example:
@@ -149,8 +135,27 @@ class DrawingBoardController extends ChangeNotifier {
   ///      },
   /// }
   /// ```
-  void load(Board board) {
-    setSketches(board.sketches);
+  Future<void> load({
+    List<SketchBase> sketches = const [],
+    Uint8List? image,
+    Size? size,
+  }) async {
+    setSketches(sketches);
+
+    if (image != null) {
+      final codec = await ui.instantiateImageCodec(
+        image.buffer.asUint8List(),
+        targetHeight: size?.height.toInt(),
+        targetWidth: size?.width.toInt(),
+      );
+      var frame = await codec.getNextFrame();
+
+      addSketch(ImageSketch(image: frame.image));
+    }
+
+    undoService.clear();
+
+    notifyListeners();
   }
 
   void undo() {

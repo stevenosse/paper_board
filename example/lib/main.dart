@@ -8,6 +8,7 @@ void main() {
   runApp(const MyApp());
 }
 
+// ignore_for_file: use_build_context_synchronously
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -43,15 +44,22 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    _init();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _init());
   }
 
   void _init() async {
-    final content = await rootBundle.loadString('assets/board.json');
-    final boardJson = jsonDecode(content) as Map<String, dynamic>;
-    Board board = Board.deserialize(boardJson);
+    final imageBytes = base64Decode(
+      await rootBundle.loadString('assets/image.txt'),
+    );
 
-    controller.load(board);
+    await controller.load(
+      sketches: [],
+      image: imageBytes,
+      size: Size(
+        MediaQuery.sizeOf(context).width,
+        MediaQuery.sizeOf(context).height,
+      ),
+    );
   }
 
   @override

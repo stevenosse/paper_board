@@ -26,4 +26,9 @@ class UndoService {
     command.execute();
     _undoStack.add(command);
   }
+
+  void clear() {
+    _undoStack.clear();
+    _redoStack.clear();
+  }
 }
