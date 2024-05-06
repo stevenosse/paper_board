@@ -71,7 +71,6 @@ class _PaperBoardState extends State<PaperBoard> {
               _readOnly = true;
             }
           },
-            
           onInteractionEnd: (details) {
             if (details.pointerCount <= 1) {
               Future.delayed(const Duration(milliseconds: 1000), () {

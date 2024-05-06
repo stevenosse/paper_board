@@ -31,6 +31,10 @@ final class ImageSketch extends SketchBase {
 
   @override
   Future<void> draw(Canvas canvas, Size size) async {
-    canvas.drawImage(image, Offset.zero, Paint());
+    // draw image by fitting the image to the size
+
+    final rect = Rect.fromLTWH(0, 0, size.width, size.height);
+
+    canvas.drawImageRect(image, rect, rect, Paint());
   }
 }
