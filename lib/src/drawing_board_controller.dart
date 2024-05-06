@@ -10,12 +10,10 @@ const kDefaultThickness = 2.0;
 const kDefaultEraserThickness = 5.0;
 
 class DrawingBoardController extends ChangeNotifier {
-  final SketchSerializer? serializer;
   late GlobalKey painterKey = GlobalKey();
 
   DrawingBoardController({
     UndoService? undoService,
-    this.serializer,
   }) : undoService = undoService ?? UndoService();
 
   Iterable<SketchBase> sketches = [];
@@ -138,7 +136,7 @@ class DrawingBoardController extends ChangeNotifier {
   Future<void> load({
     List<SketchBase> sketches = const [],
     Uint8List? image,
-    Size? size,
+    Size? size = const Size(1080, 1920),
   }) async {
     setSketches(sketches);
 
