@@ -53,7 +53,6 @@ class _HomePageState extends State<HomePage> {
     );
 
     await controller.load(
-      sketches: [],
       image: imageBytes,
       size: Size(
         MediaQuery.sizeOf(context).width,

@@ -11,11 +11,13 @@ const kDefaultEraserThickness = 5.0;
 
 class DrawingBoardController extends ChangeNotifier {
   final SketchSerializer? serializer;
+  final SketchDeserializer? deserializer;
   late GlobalKey painterKey = GlobalKey();
 
   DrawingBoardController({
     UndoService? undoService,
     this.serializer,
+    this.deserializer,
   }) : undoService = undoService ?? UndoService();
 
   Iterable<SketchBase> sketches = [];
@@ -136,11 +138,17 @@ class DrawingBoardController extends ChangeNotifier {
   /// }
   /// ```
   Future<void> load({
-    List<SketchBase> sketches = const [],
+    Map<String, dynamic>? json,
     Uint8List? image,
     Size? size,
   }) async {
-    setSketches(sketches);
+    if (json?['sketches'] != null) {
+      final sketches = json!['sketches']
+          .map<SketchBase>((s) =>
+              (deserializer ?? const SketchDeserializer()).deserialize(s))
+          .toList();
+      setSketches(sketches);
+    }
 
     if (image != null) {
       final codec = await ui.instantiateImageCodec(
@@ -187,5 +195,13 @@ class DrawingBoardController extends ChangeNotifier {
       return null;
     }
     return 'data:image/png;base64,${base64Encode(data.buffer.asUint8List())}';
+  }
+
+  Map<String, dynamic> serialize() {
+    return {
+      'sketches': sketches
+          .map((serializer ?? const SketchSerializer()).serialize)
+          .toList(),
+    };
   }
 }

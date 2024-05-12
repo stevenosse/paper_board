@@ -24,17 +24,15 @@ final class ImageSketch extends SketchBase {
     double? thickness,
     Uint8List? pngData,
   }) {
-    return ImageSketch(
-      image: image,
-    );
+    return ImageSketch(image: image);
   }
 
   @override
   Future<void> draw(Canvas canvas, Size size) async {
-    // draw image by fitting the image to the size
+    final imageSize = Size(image.width.toDouble(), image.height.toDouble());
+    final Rect imageRect = Offset.zero & imageSize;
+    final Rect canvasRect = Offset.zero & size;
 
-    final rect = Rect.fromLTWH(0, 0, size.width, size.height);
-
-    canvas.drawImageRect(image, rect, rect, Paint());
+    canvas.drawImageRect(image, imageRect, canvasRect, Paint());
   }
 }
