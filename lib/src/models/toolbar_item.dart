@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:line_icons/line_icons.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:paper_board/paper_board.dart';
 
 typedef ActionHandler = void Function(DrawingBoardController controller);
@@ -21,28 +21,28 @@ class ToolbarItem {
 final standardToolbarItems = [
   ToolbarItem(
     label: 'Pencil',
-    icon: LineIcons.alternatePencil,
+    icon: IconsaxPlusLinear.pen_add,
     sketch: PencilSketch,
     handler: (controller) => controller
         .setSketch(const PencilSketch(points: [], color: Colors.black)),
   ),
   ToolbarItem(
     label: 'Eraser',
-    icon: LineIcons.eraser,
+    icon: IconsaxPlusLinear.eraser,
     sketch: EraserSketch,
     handler: (controller) => controller
         .setSketch(const EraserSketch(points: [], color: Colors.white)),
   ),
   ToolbarItem(
     label: 'Rectangle',
-    icon: LineIcons.square,
+    icon: IconsaxPlusLinear.square,
     sketch: RectangleSketch,
     handler: (controller) => controller
         .setSketch(const RectangleSketch(points: [], color: Colors.black)),
   ),
   ToolbarItem(
     label: 'Sphere',
-    icon: LineIcons.circle,
+    icon: IconsaxPlusLinear.shapes,
     sketch: SphereSketch,
     handler: (controller) => controller
         .setSketch(const SphereSketch(points: [], color: Colors.black)),
@@ -56,14 +56,14 @@ final standardToolbarItems = [
   ),
   ToolbarItem(
     label: 'Line',
-    icon: LineIcons.lineChart,
+    icon: IconsaxPlusLinear.link_circle,
     sketch: LineSketch,
     handler: (controller) =>
         controller.setSketch(const LineSketch(points: [], color: Colors.black)),
   ),
   ToolbarItem(
     label: 'Clear',
-    icon: LineIcons.trash,
+    icon: IconsaxPlusLinear.trash,
     handler: (controller) => controller.clear(),
   ),
 ];

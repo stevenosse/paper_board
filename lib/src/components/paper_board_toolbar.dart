@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:line_icons/line_icons.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:paper_board/paper_board.dart';
 import 'package:paper_board/src/components/size_selector_widget.dart';
 import 'package:paper_board/src/models/toolbar_item.dart';
@@ -36,6 +36,9 @@ class PaperBoardToolbar extends StatefulWidget {
 class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
   DrawingBoardController get controller => widget.controller;
 
+  final GlobalKey _sizeSelectorKey = GlobalKey();
+  final GlobalKey _eraserSizeSelectorKey = GlobalKey();
+
   final _sizeSelectorOverlayController = OverlayPortalController();
   final _eraserSizeSelectorOverlayController = OverlayPortalController();
 
@@ -56,13 +59,13 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                   IconButton(
                     onPressed:
                         !controller.canUndo ? null : () => controller.undo(),
-                    icon: const Icon(LineIcons.undo),
+                    icon: const Icon(IconsaxPlusLinear.undo),
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
                   IconButton(
                     onPressed:
                         !controller.canRedo ? null : () => controller.redo(),
-                    icon: const Icon(LineIcons.redo),
+                    icon: const Icon(IconsaxPlusLinear.redo),
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
                   const _Divider(),
@@ -86,9 +89,14 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                   OverlayPortal(
                     controller: _sizeSelectorOverlayController,
                     overlayChildBuilder: (context) {
+                      final renderBox = _sizeSelectorKey.currentContext
+                          ?.findRenderObject() as RenderBox;
+
+                      final offset = renderBox.localToGlobal(Offset.zero);
+
                       return Positioned(
-                        left: 10.0,
-                        bottom: 100,
+                        left: offset.dx + 10.0,
+                        top: offset.dy - 80,
                         child: SizeSelectorWidget(
                           initialSize: controller.currentSketch.thickness,
                           onSizeChanged: (size) =>
@@ -101,7 +109,8 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                       child: Tooltip(
                         message: 'Size',
                         child: IconButton(
-                          icon: const Icon(LineIcons.ruler),
+                          key: _sizeSelectorKey,
+                          icon: const Icon(IconsaxPlusLinear.ruler),
                           color: Theme.of(context).colorScheme.onSurface,
                           onPressed: () =>
                               _sizeSelectorOverlayController.toggle(),
@@ -112,9 +121,13 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                   OverlayPortal(
                     controller: _eraserSizeSelectorOverlayController,
                     overlayChildBuilder: (context) {
+                      final renderBox = _eraserSizeSelectorKey.currentContext
+                          ?.findRenderObject() as RenderBox;
+
+                      final offset = renderBox.localToGlobal(Offset.zero);
                       return Positioned(
-                        left: 10.0,
-                        bottom: 100,
+                        left: offset.dx + 10.0,
+                        top: offset.dy - 80,
                         child: SizeSelectorWidget(
                           initialSize: controller.eraserThickness,
                           onSizeChanged: (size) =>
@@ -127,7 +140,8 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                       child: Tooltip(
                         message: 'Eraser Size',
                         child: IconButton(
-                          icon: const Icon(LineIcons.rulerCombined),
+                          key: _eraserSizeSelectorKey,
+                          icon: const Icon(IconsaxPlusLinear.eraser_1),
                           color: Theme.of(context).colorScheme.onSurface,
                           onPressed: () =>
                               _eraserSizeSelectorOverlayController.toggle(),
@@ -141,7 +155,7 @@ class _PaperBoardToolbarState extends State<PaperBoardToolbar> {
                       final data = await controller.getPngData();
                       widget.onExport?.call(data);
                     },
-                    icon: const Icon(LineIcons.image),
+                    icon: const Icon(IconsaxPlusLinear.image),
                     color: Theme.of(context).colorScheme.onSurface,
                   )
                 ],
