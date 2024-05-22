@@ -65,69 +65,55 @@ class _PaperBoardState extends State<PaperBoard> {
     return ListenableBuilder(
       listenable: controller,
       builder: (context, snapshot) {
-        return InteractiveViewer(
-          onInteractionStart: (details) {
-            if (details.pointerCount > 1) {
-              _readOnly = true;
-            }
-          },
-          onInteractionEnd: (details) {
-            if (details.pointerCount <= 1) {
-              Future.delayed(const Duration(milliseconds: 1000), () {
-                _readOnly = widget.readOnly;
-              });
-            }
-          },
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return Stack(
-                children: [
-                  Container(
-                    width: constraints.maxWidth,
-                    height: constraints.maxHeight,
-                    color: widget.theme?.backgroundColor ??
-                        Theme.of(context).scaffoldBackgroundColor,
-                  ),
-                  RepaintBoundary(
-                    key: controller.painterKey,
-                    child: CustomPaint(
-                      size: Size(
-                        constraints.maxWidth,
-                        constraints.maxHeight,
-                      ),
-                      painter: PaperBoardPainter(
-                        backgroundColor: widget.theme?.backgroundColor ??
-                            Theme.of(context).scaffoldBackgroundColor,
-                        sketches: [
-                          ...controller.sketches,
-                          // This fixes the issue with eraser not working
-                          if (controller.currentSketch is EraserSketch)
-                            controller.currentSketch
-                        ],
-                      ),
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            return Stack(
+              children: [
+                Container(
+                  width: constraints.maxWidth,
+                  height: constraints.maxHeight,
+                  color: widget.theme?.backgroundColor ??
+                      Theme.of(context).scaffoldBackgroundColor,
+                ),
+                RepaintBoundary(
+                  key: controller.painterKey,
+                  child: CustomPaint(
+                    size: Size(
+                      constraints.maxWidth,
+                      constraints.maxHeight,
+                    ),
+                    painter: PaperBoardPainter(
+                      backgroundColor: widget.theme?.backgroundColor ??
+                          Theme.of(context).scaffoldBackgroundColor,
+                      sketches: [
+                        ...controller.sketches,
+                        // This fixes the issue with eraser not working
+                        if (controller.currentSketch is EraserSketch)
+                          controller.currentSketch
+                      ],
                     ),
                   ),
-                  if (!_readOnly)
-                    Listener(
-                      onPointerUp: _onPointerUp,
-                      onPointerMove: _onPointerMove,
-                      onPointerDown: _onPointerDown,
-                      child: RepaintBoundary(
-                        child: CustomPaint(
-                          size: Size(
-                            constraints.maxWidth,
-                            constraints.maxHeight,
-                          ),
-                          painter: SketchPainter(
-                            sketch: controller.currentSketch,
-                          ),
+                ),
+                if (!_readOnly)
+                  Listener(
+                    onPointerUp: _onPointerUp,
+                    onPointerMove: _onPointerMove,
+                    onPointerDown: _onPointerDown,
+                    child: RepaintBoundary(
+                      child: CustomPaint(
+                        size: Size(
+                          constraints.maxWidth,
+                          constraints.maxHeight,
+                        ),
+                        painter: SketchPainter(
+                          sketch: controller.currentSketch,
                         ),
                       ),
-                    )
-                ],
-              );
-            },
-          ),
+                    ),
+                  )
+              ],
+            );
+          },
         );
       },
     );

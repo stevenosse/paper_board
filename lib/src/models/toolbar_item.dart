@@ -35,14 +35,14 @@ final standardToolbarItems = [
   ),
   ToolbarItem(
     label: 'Rectangle',
-    icon: IconsaxPlusLinear.square,
+    icon: Icons.rectangle_outlined,
     sketch: RectangleSketch,
     handler: (controller) => controller
         .setSketch(const RectangleSketch(points: [], color: Colors.black)),
   ),
   ToolbarItem(
     label: 'Sphere',
-    icon: IconsaxPlusLinear.shapes,
+    icon: Icons.circle_outlined,
     sketch: SphereSketch,
     handler: (controller) => controller
         .setSketch(const SphereSketch(points: [], color: Colors.black)),
@@ -56,7 +56,7 @@ final standardToolbarItems = [
   ),
   ToolbarItem(
     label: 'Line',
-    icon: IconsaxPlusLinear.link_circle,
+    icon: Icons.straight,
     sketch: LineSketch,
     handler: (controller) =>
         controller.setSketch(const LineSketch(points: [], color: Colors.black)),
